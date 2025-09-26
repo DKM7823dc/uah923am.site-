@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="de" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Haftungsausschluss - Investment Deutschland Bildungsplattform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': '#0f172a',
+                        'secondary': '#1e293b',
+                        'accent': '#3b82f6',
+                        'gold': '#f59e0b',
+                        'success': '#10b981',
+                        'danger': '#ef4444'
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.6s ease-out',
+                        'slide-in': 'slideIn 0.8s ease-out'
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' }
+                        },
+                        slideIn: {
+                            '0%': { opacity: '0', transform: 'translateX(-20px)' },
+                            '100%': { opacity: '1', transform: 'translateX(0)' }
+                        }
+                    }
+                }
+            }
+        }
+
+        // Dark mode support
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.classList.add('dark');
+        }
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+            if (event.matches) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        });
+    </script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        }
+        
+        .prose h1 { 
+            @apply text-4xl md:text-5xl font-bold text-primary dark:text-white mb-8 leading-tight;
+            background: linear-gradient(135deg, #0f172a 0%, #ef4444 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .dark .prose h1 {
+            background: linear-gradient(135deg, #ffffff 0%, #ef4444 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .prose h2 { 
+            @apply text-2xl md:text-3xl font-bold text-primary dark:text-white mt-12 mb-6 pb-3 border-b-2 border-danger/20;
+        }
+        .prose h3 { 
+            @apply text-xl md:text-2xl font-semibold text-primary dark:text-white mt-8 mb-4 flex items-center;
+        }
+        .prose h3::before {
+            content: '';
+            @apply w-1 h-6 bg-danger rounded mr-3;
+        }
+        .prose h4 { 
+            @apply text-lg md:text-xl font-semibold text-gray-800 dark:text-gray-200 mt-6 mb-3;
+        }
+        .prose p { 
+            @apply text-gray-700 dark:text-gray-300 mb-6 leading-relaxed text-base md:text-lg;
+        }
+        .prose ul { 
+            @apply list-none text-gray-700 dark:text-gray-300 mb-6 space-y-3;
+        }
+        .prose ul li {
+            @apply ml-0 pl-6 relative;
+        }
+        .prose ul li::before {
+            content: '•';
+            @apply absolute left-0 text-danger font-bold text-xl;
+        }
+        .prose ol { 
+            @apply list-decimal list-inside text-gray-700 dark:text-gray-300 mb-6 space-y-3;
+        }
+        .prose strong { 
+            @apply font-semibold text-gray-900 dark:text-gray-100;
+        }
+        .prose em { 
+            @apply italic;
+        }
+        
+        .highlight-box {
+            @apply bg-gradient-to-r from-blue-50 to-blue-100 dark:from-blue-900/50 dark:to-blue-800/50 border-l-4 border-accent rounded-r-lg p-6 my-8 shadow-lg;
+        }
+        
+        .warning-box {
+            @apply bg-gradient-to-r from-amber-50 to-amber-100 dark:from-amber-900/50 dark:to-amber-800/50 border-l-4 border-amber-500 rounded-r-lg p-6 my-8 shadow-lg;
+        }
+        
+        .info-box {
+            @apply bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-800/50 dark:to-gray-700/50 border-l-4 border-gray-400 rounded-r-lg p-6 my-8 shadow-lg;
+        }
+
+        .success-box {
+            @apply bg-gradient-to-r from-green-50 to-green-100 dark:from-green-900/50 dark:to-green-800/50 border-l-4 border-success rounded-r-lg p-6 my-8 shadow-lg;
+        }
+
+        .danger-box {
+            @apply bg-gradient-to-r from-red-50 to-red-100 dark:from-red-900/50 dark:to-red-800/50 border-l-4 border-danger rounded-r-lg p-6 my-8 shadow-lg;
+        }
+
+        .critical-box {
+            @apply bg-gradient-to-r from-red-100 to-red-200 dark:from-red-900/70 dark:to-red-800/70 border-2 border-danger rounded-lg p-8 my-10 shadow-xl;
+        }
+
+        .section-card {
+            @apply bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 mb-8 border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all duration-300;
+        }
+
+        .table-of-contents {
+            @apply bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 mb-8 border border-gray-200 dark:border-gray-700;
+        }
+
+        .toc-link {
+            @apply text-accent hover:text-blue-700 dark:hover:text-blue-300 transition-colors duration-200 block py-2 px-4 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700;
+        }
+
+        .scroll-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #ef4444, #dc2626);
+            transform-origin: left;
+            z-index: 9999;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 antialiased">
+    <!-- Scroll Indicator -->
+    <div class="scroll-indicator" id="scrollIndicator"></div>
+
+    <!-- Header -->
+    <header class="bg-white dark:bg-gray-800 shadow-lg sticky top-0 z-50 backdrop-blur-sm bg-white/95 dark:bg-gray-800/95">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-gradient-to-r from-danger to-red-700 rounded-lg flex items-center justify-center shadow-lg">
+                        <span class="text-white font-bold text-lg">€</span>
+                    </div>
+                    <span class="text-xl font-bold text-primary dark:text-white">Investment Deutschland</span>
+                </div>
+                <button onclick="window.history.back()" class="flex items-center space-x-2 text-accent hover:text-blue-700 dark:hover:text-blue-300 font-medium transition-colors duration-200 px-4 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                    </svg>
+                    <span>Zurück</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-br from-red-800 via-red-700 to-red-900 text-white py-16">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="animate-fade-in">
+                <h1 class="text-4xl md:text-6xl font-bold mb-6">Haftungsausschluss</h1>
+                <p class="text-xl md:text-2xl text-red-100 max-w-3xl mx-auto leading-relaxed">
+                    Wichtige rechtliche Hinweise zu Risiken und Verantwortlichkeiten
+                </p>
+            </div>
+            
+            <div class="mt-12 animate-slide-in">
+                <div class="critical-box bg-white/10 border-white/20 backdrop-blur-sm">
+                    <div class="flex items-center justify-center mb-4">
+                        <svg class="w-10 h-10 text-yellow-300 mr-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"/>
+                        </svg>
+                        <span class="text-2xl font-bold text-white">⚠️ KRITISCHE RISIKOHINWEISE</span>
+                    </div>
+                    <p class="text-white/95 mb-4 text-lg font-semibold">
+                        Diese Plattform dient ausschließlich der Bildung. Alle Investitionen bergen erhebliche Verlustrisiken.
+                    </p>
+                    <p class="text-red-100 mb-0">
+                        Lesen Sie diese Haftungsausschlüsse sorgfältig durch, bevor Sie unsere Bildungsressourcen nutzen
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <!-- Table of Contents -->
+        <div class="table-of-contents animate-fade-in">
+            <h2 class="text-2xl font-bold text-primary dark:text-white mb-6 flex items-center">
+                <svg class="w-6 h-6 text-danger mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/>
+                </svg>
+                Inhaltsverzeichnis
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <a href="#section1" class="toc-link">1. Keine Anlageberatung</a>
+                <a href="#section2" class="toc-link">2. Investitionsrisiken</a>
+                <a href="#section3" class="toc-link">3. Bildungscharakter</a>
+                <a href="#section4" class="toc-link">4. Haftungsbegrenzung</a>
+                <a href="#section5" class="toc-link">5. Externe Links</a>
+                <a href="#section6" class="toc-link">6. Technische Haftung</a>
+                <a href="#section7" class="toc-link">7. Regulatorische Hinweise</a>
+                <a href="#section8" class="toc-link">8. Eigenverantwortung</a>
+                <a href="#section9" class="toc-link">9. Aktualität der Informationen</a>
+                <a href="#section10" class="toc-link">10. Rechtliche Bestimmungen</a>
+            </div>
+        </div>
+
+        <div class="prose max-w-none">
+            <!-- Section 1 -->
+            <div id="section1" class="section-card animate-fade-in">
+                <h2>1. Keine Anlageberatung</h2>
+                
+                <div class="critical-box">
+                    <div class="flex items-start">
+                        <svg class="w-8 h-8 text-danger mr-4 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"/>
+                        </svg>
+                        <div>
+                            <h3 class="text-2xl font-bold text-red-800 dark:text-red-200 mb-4">AUSDRÜCKLICHER HAFTUNGSAUSSCHLUSS</h3>
+                            <p class="text-red-800 dark:text-red-200 mb-0 text-lg font-semibold">ALLE AUF DIESER PLATTFORM BEREITGESTELLTEN INHALTE DIENEN AUSSCHLIESSLICH BILDUNGS- UND INFORMATIONSZWECKEN. SIE STELLEN KEINE ANLAGEBERATUNG, FINANZBERATUNG ODER INVESTMENTEMPFEHLUNGEN DAR.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Bildungszweck</h3>
+                <p>Unsere Investment Deutschland Bildungsplattform wurde ausschließlich entwickelt, um Finanzwissen zu vermitteln und das Verständnis für Marktmechanismen zu fördern. Alle Inhalte, Analysen, Diskussionen und Materialien dienen einzig dem Lernprozess.</p>
+
+                <h3>Keine individuellen Empfehlungen</h3>
+                <p>Wir geben keine individuellen Anlageempfehlungen ab und berücksichtigen nicht Ihre persönlichen finanziellen Umstände, Anlageziele oder Risikotoleranz. Jede Investitionsentscheidung muss auf Ihrer eigenen gründlichen Analyse oder der Beratung durch einen lizenzierten Finanzberater basieren.</p>
+
+                <h3>Keine Lizenz für Finanzdienstleistungen</h3>
+                <p>Wir sind kein lizenzierter Finanzdienstleister und bieten keine regulierten Finanzdienstleistungen an. Unsere Aktivitäten beschränken sich ausschließlich auf die Bereitstellung von Bildungsinhalten und Lernmaterialien.</p>
+
+                <div class="warning-box">
+                    <div class="flex items-start">
+                        <svg class="w-6 h-6 text-amber-600 dark:text-amber-400 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"/>
+                        </svg>
+                        <div>
+                            <p class="font-semibold text-amber-800 dark:text-amber-200 mb-2">Professionelle Beratung erforderlich</p>
+                            <p class="text-amber-800 dark:text-amber-200 mb-0">Konsultieren Sie vor jeder Investitionsentscheidung einen lizenzierten Finanzberater, der Ihre individuelle Situation berücksichtigen kann.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 2 -->
+            <div id="section2" class="section-card animate-fade-in">
+                <h2>2. Investitionsrisiken</h2>
+                
+                <h3>Hohe Verlustrisiken</h3>
+                <div class="danger-box">
+                    <div class="flex items-start">
+                        <svg class="w-6 h-6 text-danger mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                        </svg>
+                        <div>
+                            <p class="font-semibold text-red-800 dark:text-red-200 mb-2">KRITISCHE WARNUNG:</p>
+                            <p class="text-red-800 dark:text-red-200 mb-0">Alle Investitionen sind mit erheblichen Verlustrisiken verbunden. Sie können Ihr gesamtes investiertes Kapital verlieren. Investieren Sie nur Geld, dessen Verlust Sie sich leisten können.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Marktvolatilität</h3>
+                <p>Finanzmärkte unterliegen erheblichen Schwankungen und können sich schnell und unvorhersagbar ändern. Historische Leistungen sind keine Garantie für zukünftige Ergebnisse. Marktbedingungen können sich dramatisch ändern und zu erheblichen Verlusten führen.</p>
+
+                <h3>Keine Gewinngarantien</h3>
+                <ul>
+                    <li>Wir geben keine Gewinngarantien oder Erfolgsversprechen ab</li>
+                    <li>Vergangene Wertentwicklungen sind keine Indikation für zukünftige Ergebnisse</li>
+                    <li>Alle Beispiele und Fallstudien dienen ausschließlich Bildungszwecken</li>
+                    <li>Jede Investition kann zu teilweisen oder vollständigen Verlusten führen</li>
+                    <li>Marktbedingungen können sich ohne Vorwarnung ändern</li>
+                </ul>
+
+                <h3>Spezifische Risikofaktoren</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="warning-box">
+                        <h4 class="font-semibold text-amber-800 dark:text-amber-200 mb-2">Marktrisiken</h4>
+                        <ul class="text-amber-800 dark:text-amber-200 space-y-1 text-sm">
+                            <li>Preisvolatilität</li>
+                            <li>Liquiditätsrisiko</li>
+                            <li>Währungsrisiko</li>
+                            <li>Zinsrisiko</li>
+                        </ul>
+                    </div>
+                    <div class="warning-box">
+                        <h4 class="font-semibold text-amber-800 dark:text-amber-200 mb-2">Externe Faktoren</h4>
+                        <ul class="text-amber-800 dark:text-amber-200 space-y-1 text-sm">
+                            <li>Wirtschaftliche Entwicklungen</li>
+                            <li>Politische Ereignisse</li>
+                            <li>Regulatorische Änderungen</li>
+                            <li>Technologische Disruption</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 3 -->
+            <div id="section3" class="section-card animate-fade-in">
+                <h2>3. Bildungscharakter der Plattform</h2>
+                
+                <h3>Ausschließlich Bildungsinhalte</h3>
+                <p>Unsere Plattform wurde entwickelt, um Finanzwissen zu vermitteln und das Verständnis für Märkte, Investmentstrategien und Risikomanagement zu fördern. Alle bereitgestellten Materialien, Analysen und Diskussionen dienen ausschließlich Lern- und Informationszwecken.</p>
+
+                <div class="success-box">
+                    <div class="flex items-start">
+                        <svg class="w-6 h-6 text-success mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                        </svg>
+                        <div>
+                            <h4 class="font-semibold text-green-800 dark:text-green-200 mb-2">Unsere Bildungsmission</h4>
+                            <p class="text-green-800 dark:text-green-200 mb-0">Wir sind bestrebt, qualitativ hochwertige Finanzbildung bereitzustellen, um Ihr Verständnis für Märkte und Investmentprinzipien zu verbessern. Bildung ist der Schlüssel zu besseren Finanzentscheidungen.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Theoretische Konzepte</h3>
+                <p>Alle auf unserer Plattform diskutierten Investmentstrategien, Marktanalysen und Finanzkonzepte werden zu Bildungszwecken präsentiert. Sie sollen Ihr theoretisches Verständnis fördern, nicht als Handlungsanweisungen dienen.</p>
+
+                <h3>Fallstudien und Beispiele</h3>
+                <p>Historische Beispiele, Fallstudien und Marktanalysen werden verwendet, um Lernkonzepte zu illustrieren. Diese Beispiele sollen nicht als Vorhersagen für zukünftige Marktentwicklungen oder als Empfehlungen für spezifische Investitionen verstanden werden.</p>
+
+                <h3>Lerngemeinschaft</h3>
+                <p>Diskussionen und Meinungsaustausch in unserer Bildungsgemeinschaft dienen dem kollektiven Lernen. Meinungen und Ansichten anderer Teilnehmer stellen keine professionelle Beratung dar und sollten kritisch hinterfragt werden.</p>
+            </div>
+
+            <!-- Section 4 -->
+            <div id="section4" class="section-card animate-fade-in">
+                <h2>4. Haftungsbegrenzung</h2>
+                
+                <h3>Umfassender Haftungsausschluss</h3>
+                <p>Soweit gesetzlich zulässig, übernehmen wir keine Haftung für Schäden oder Verluste, die direkt oder indirekt aus der Nutzung unserer Plattform oder der bereitgestellten Informationen entstehen.</p>
+
+                <div class="danger-box">
+                    <div class="flex items-start">
+                        <svg class="w-6 h-6 text-danger mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728L5.636 5.636m12.728 12.728L12 12m6.364 6.364L12 12m0 0L5.636 5.636M12 12l6.364-6.364M12 12l-6.364 6.364"/>
+                        </svg>
+                        <div>
+                            <p class="font-semibold text-red-800 dark:text-red-200 mb-2">Ausgeschlossene Haftung</p>
+                            <p class="text-red-800 dark:text-red-200 mb-0">Wir haften nicht für finanzielle Verluste, Investitionsentscheidungen oder andere Schäden, die aus der Nutzung unserer Bildungsressourcen entstehen.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Spezifische Haftungsausschlüsse</h3>
+                <ul>
+                    <li><strong>Finanzielle Verluste:</strong> Keine Haftung für Verluste aus Investitionsentscheidungen</li>
+                    <li><strong>Direkte Schäden:</strong> Ausschluss der Haftung für unmittelbare Verluste</li>
+                    <li><strong>Folgeschäden:</strong> Keine Haftung für mittelbare oder Folgeschäden</li>
+                    <li><strong>Entgangene Gewinne:</strong> Ausschluss der Haftung für verpasste Gewinnchancen</li>
+                    <li><strong>Opportunitätskosten:</strong> Keine Haftung für alternative Investitionsmöglichkeiten</li>
+                    <li><strong>Emotionale Belastung:</strong> Ausschluss der Haftung für psychische Auswirkungen</li>
+                </ul>
+
+                <h3>Maximale Haftungsbegrenzung</h3>
+                <p>Soweit gesetzlich zulässig, ist unsere Gesamthaftung auf null Euro begrenzt, da alle unsere Bildungsdienstleistungen kostenlos angeboten werden. Diese Haftungsbegrenzung gilt für alle Arten von Schäden und Ansprüchen.</p>
+
+                <h3>Gesetzliche Ausnahmen</h3>
+                <p>Diese Haftungsbegrenzungen gelten nicht für Schäden, die durch vorsätzliches oder grob fahrlässiges Verhalten verursacht werden, oder für gesetzlich vorgeschriebene Haftungen, die nicht ausgeschlossen werden können.</p>
+            </div>
+
+            <!-- Section 5 -->
+            <div id="section5" class="section-card animate-fade-in">
+                <h2>5. Externe Links und Drittanbieter-Inhalte</h2>
+                
+                <h3>Verlinkung zu externen Websites</h3>
+                <p>Unsere Plattform kann Links zu externen Websites und Ressourcen enthalten. Diese Links werden nur zu Bildungs- und Informationszwecken bereitgestellt und stellen keine Empfehlung oder Billigung der verlinkten Inhalte dar.</p>
+
+                <div class="warning-box">
+                    <div class="flex items-start">
+                        <svg class="w-6 h-6 text-amber-600 dark:text-amber-400 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/>
+                        </svg>
+                        <div>
+                            <p class="font-semibold text-amber-800 dark:text-amber-200 mb-2">Externe Links-Haftungsausschluss</p>
+                            <p class="text-amber-800 dark:text-amber-200 mb-0">Wir übernehmen keine Verantwortung für den Inhalt, die Genauigkeit oder die Verfügbarkeit von externen Websites. Die Nutzung externer Links erfolgt auf eigenes Risiko.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Verantwortung für externe Inhalte</h3>
+                <p>Für den Inhalt verlinkter Seiten sind ausschließlich deren Betreiber verantwortlich. Wir haben keinen Einfluss auf die Gestaltung und den Inhalt fremder Internetseiten und machen uns deren Inhalte nicht zu eigen.</p>
+
+                <h3>Änderungen externer Inhalte</h3>
+                <p>Externe Websites können ihre Inhalte jederzeit ohne unser Wissen ändern. Wir können nicht garantieren, dass verlinkte Inhalte dauerhaft verfügbar oder aktuell bleiben.</p>
+
+                <h3>Drittanbieter-Dienstleistungen</h3>
+                <p>Falls wir Drittanbieter-Dienstleistungen (wie Hosting, Analytics oder andere technische Services) nutzen, haben wir keinen Einfluss auf deren Verfügbarkeit oder Funktionalität. Ausfälle oder Probleme bei Drittanbietern können unsere Dienstleistungen beeinträchtigen.</p>
+
+                <h3>Social Media und Kommunikationsplattformen</h3>
+                <p>Links zu Social Media-Plattformen oder Kommunikationsdiensten (wie WhatsApp) erfolgen zur Erleichterung der Kommunikation. Wir sind nicht verantwortlich für die Datenschutzpraktiken oder Sicherheitsmaßnahmen dieser Plattformen.</p>
+            </div>
+
+            <!-- Section 6 -->
+            <div id="section6" class="section-card animate-fade-in">
+                <h2>6. Technische Haftung und Verfügbarkeit</h2>
+                
+                <h3>Keine Gewährleistung der Verfügbarkeit</h3>
+                <p>Wir können nicht garantieren, dass unsere Plattform jederzeit verfügbar oder fehlerfrei funktioniert. Technische Probleme, Wartungsarbeiten oder andere Umstände können zu Ausfällen oder Einschränkungen führen.</p>
+
+                <div class="info-box">
+                    <div class="flex items-start">
+                        <svg class="w-6 h-6 text-gray-600 dark:text-gray-400 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                        </svg>
+                        <div>
+                            <p class="font-semibold mb-2">Technische Einschränkungen</p>
+                            <p class="mb-0">Internetbasierte Dienstleistungen unterliegen technischen Einschränkungen und Ausfallrisiken. Wir bemühen uns um hohe Verfügbarkeit, können diese aber nicht garantieren.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Datenverlust und technische Probleme</h3>
+                <ul>
+                    <li>Keine Haftung für Datenverlust oder -beschädigung</li>
+                    <li>Ausschluss der Verantwortung für technische Störungen</li>
+                    <li>Keine Gewährleistung für Kompatibilität mit allen Geräten</li>
+                    <li>Mögliche Einschränkungen durch Browser oder Betriebssysteme</li>
+                    <li>Potenzielle Sicherheitsrisiken im Internet</li>
+                </ul>
+
+                <h3>Software und Updates</h3>
+                <p>Unsere Plattform kann regelmäßige Updates oder Änderungen erfahren. Wir sind nicht verpflichtet, bestimmte Features dauerhaft bereitzustellen oder Nutzer über alle Änderungen zu informieren.</p>
+
+                <h3>Systemanforderungen</h3>
+                <p>Die ordnungsgemäße Funktion unserer Plattform hängt von verschiedenen technischen Faktoren ab, einschließlich Ihrer Internetverbindung, Browser-Kompatibilität und Gerätespezifikationen. Wir können nicht für alle möglichen technischen Konfigurationen Unterstützung gewährleisten.</p>
+
+                <h3>Cybersecurity-Risiken</h3>
+                <p>Trotz angemessener Sicherheitsmaßnahmen können internetbasierte Plattformen Sicherheitsrisiken unterliegen. Nutzer sind mitverantwortlich für die Sicherheit ihrer Zugangsdaten und Geräte.</p>
+            </div>
+
+            <!-- Section 7 -->
+            <div id="section7" class="section-card animate-fade-in">
+                <h2>7. Regulatorische Hinweise und Compliance</h2>
+                
+                <h3>Keine Finanzdienstleistungslizenz</h3>
+                <div class="critical-box">
+                    <div class="flex items-start">
+                        <svg class="w-6 h-6 text-danger mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                        </svg>
+                        <div>
+                            <p class="font-semibold text-red-800 dark:text-red-200 mb-2">Regulatorischer Status</p>
+                            <p class="text-red-800 dark:text-red-200 mb-0">Wir sind kein lizenzierter Finanzdienstleister und unterliegen nicht der Aufsicht durch die BaFin oder andere Finanzaufsichtsbehörden. Wir bieten keine regulierten Finanzdienstleistungen an.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Compliance mit Bildungsvorschriften</h3>
+                <p>Diese Plattform entspricht den deutschen Finanzwerbevorschriften, da sie ausschließlich Bildungsinhalte bereitstellt. Wir beachten die Bestimmungen des § 31 WpHG und anderer relevanter Gesetze bezüglich der Bereitstellung von Finanzinformationen zu Bildungszwecken.</p>
+
+                <h3>Jurisdiktion und anwendbares Recht</h3>
+                <p>Unsere Bildungsplattform richtet sich primär an Nutzer in Deutschland und unterliegt deutschem Recht. Nutzer aus anderen Ländern sind selbst dafür verantwortlich zu prüfen, ob die Nutzung unserer Bildungsressourcen mit den lokalen Gesetzen vereinbar ist.</p>
+
+                <h3>DSGVO-Konformität</h3>
+                <p>Wir sind bestrebt, die Anforderungen der Datenschutz-Grundverordnung (DSGVO) einzuhalten. Detaillierte Informationen zur Datenverarbeitung finden Sie in unserer Datenschutzerklärung.</p>
+
+                <h3>Änderungen der Rechtslage</h3>
+                <p>Bei Änderungen der Rechtslage behalten wir uns vor, unsere Dienstleistungen entsprechend anzupassen oder einzustellen. Nutzer werden über wesentliche Änderungen informiert.</p>
+            </div>
+
+            <!-- Section 8 -->
+            <div id="section8" class="section-card animate-fade-in">
+                <h2>8. Eigenverantwortung und Due Diligence</h2>
+                
+                <h3>Vollständige Eigenverantwortung</h3>
+                <p>Sie erkennen ausdrücklich an, dass jede Nutzung unserer Bildungsplattform und aller daraus resultierenden Entscheidungen vollständig in Ihrer eigenen Verantwortung liegt. Wir übernehmen keine Verantwortung für die Folgen Ihrer Entscheidungen.</p>
+
+                <div class="critical-box">
+                    <div class="flex items-start">
+                        <svg class="w-8 h-8 text-danger mr-4 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <div>
+                            <h4 class="text-xl font-bold text-red-800 dark:text-red-200 mb-3">KRITISCHE EIGENVERANTWORTUNG</h4>
+                            <p class="text-red-800 dark:text-red-200 mb-0 font-semibold">SIE SIND ALLEIN VERANTWORTLICH FÜR ALLE INVESTITIONS- UND FINANZENTSCHEIDUNGEN. FÜHREN SIE IMMER IHRE EIGENE GRÜNDLICHE RECHERCHE DURCH UND KONSULTIEREN SIE PROFESSIONELLE BERATER.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Due Diligence-Verpflichtung</h3>
+                <p>Vor jeder Investitionsentscheidung sind Sie verpflichtet, eine gründliche eigene Analyse durchzuführen, die folgende Aspekte umfassen sollte:</p>
+                <ul>
+                    <li>Umfassende Recherche der Investitionsmöglichkeiten</li>
+                    <li>Bewertung Ihrer persönlichen Risikobereitschaft</li>
+                    <li>Analyse Ihrer finanziellen Situation</li>
+                    <li>Verständnis aller relevanten Kosten und Gebühren</li>
+                    <li>Beurteilung der Marktbedingungen</li>
+                    <li>Konsultation mit lizenzierten Finanzberatern</li>
+                </ul>
+
+                <h3>Unabhängige Verifikation</h3>
+                <p>Alle auf unserer Plattform präsentierten Informationen sollten durch unabhängige Quellen verifiziert werden. Verlassen Sie sich niemals ausschließlich auf eine einzige Informationsquelle für wichtige Finanzentscheidungen.</p>
+
+                <h3>Risikomanagement</h3>
+                <p>Sie sind vollständig verantwortlich für die Implementierung angemessener Risikomanagement-Strategien. Dies umfasst Diversifikation, Position Sizing, Stop-Loss-Strategien und regelmäßige Portfolio-Überprüfungen.</p>
+
+                <h3>Bildung und Weiterbildung</h3>
+                <p>Kontinuierliche Bildung ist für erfolgreiche Finanzentscheidungen unerlässlich. Nutzen Sie unsere Bildungsressourcen als Ausgangspunkt, aber erweitern Sie Ihr Wissen durch vielfältige Quellen und professionelle Weiterbildung.</p>
+            </div>
+
+            <!-- Section 9 -->
+            <div id="section9" class="section-card animate-fade-in">
+                <h2>9. Aktualität und Richtigkeit der Informationen</h2>
+                
+                <h3>Keine Garantie für Aktualität</h3>
+                <p>Alle auf unserer Plattform bereitgestellten Informationen dienen Bildungszwecken und können veraltet oder unvollständig sein. Wir übernehmen keine Gewähr für die Aktualität, Richtigkeit oder Vollständigkeit der Informationen.</p>
+
+                <div class="warning-box">
+                    <div class="flex items-start">
+                        <svg class="w-6 h-6 text-amber-600 dark:text-amber-400 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <div>
+                            <p class="font-semibold text-amber-800 dark:text-amber-200 mb-2">Informations-Haftungsausschluss</p>
+                            <p class="text-amber-800 dark:text-amber-200 mb-0">Märkte ändern sich schnell. Informationen können zum Zeitpunkt der Nutzung bereits veraltet sein. Überprüfen Sie immer die Aktualität von Informationen aus unabhängigen Quellen.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Historische Daten</h3>
+                <p>Historische Marktdaten und Beispiele werden zu Bildungszwecken verwendet und spiegeln nicht unbedingt aktuelle Marktbedingungen wider. Vergangene Leistungen sind kein Indikator für zukünftige Ergebnisse.</p>
+
+                <h3>Marktinformationen</h3>
+                <p>Marktanalysen, Trends und Kommentare basieren auf öffentlich verfügbaren Informationen und subjektiven Einschätzungen zu Bildungszwecken. Sie stellen keine Prognosen oder Empfehlungen dar.</p>
+
+                <h3>Technische Analyse</h3>
+                <p>Technische Analysemethoden und Chartmuster werden zu Lernzwecken erläutert. Die Wirksamkeit dieser Methoden ist umstritten und ihre Anwendung birgt erhebliche Risiken.</p>
+
+                <h3>Wirtschaftsdaten</h3>
+                <p>Wirtschaftsindikatoren und Fundamentaldaten können sich zwischen Veröffentlichung und Nutzung ändern. Aktuelle Daten sollten immer von offiziellen Quellen bezogen werden.</p>
+
+                <h3>Regulatorische Änderungen</h3>
+                <p>Gesetze, Vorschriften und Steuerbestimmungen ändern sich regelmäßig. Informationen über regulatorische Aspekte können schnell veralten und sollten von aktuellen offiziellen Quellen überprüft werden.</p>
+            </div>
+
+            <!-- Section 10 -->
+            <div id="section10" class="section-card animate-fade-in">
+                <h2>10. Rechtliche Bestimmungen und Schlussklauseln</h2>
+                
+                <h3>Anwendbares Recht</h3>
+                <p>Dieser Haftungsausschluss und alle sich daraus ergebenden Rechtsbeziehungen unterliegen ausschließlich deutschem Recht unter Ausschluss des UN-Kaufrechts und der Verweisungsnormen des internationalen Privatrechts.</p>
+
+                <h3>Gerichtsstand</h3>
+                <p>Für alle Streitigkeiten aus oder im Zusammenhang mit diesem Haftungsausschluss ist ausschließlich der Gerichtsstand Deutschland zuständig. Bei Verbrauchern gilt diese Gerichtsstandsvereinbarung nur, soweit dadurch der gesetzlich vorgesehene Schutz nicht entzogen wird.</p>
+
+                <h3>Salvatorische Klausel</h3>
+                <p>Sollten einzelne Bestimmungen dieses Haftungsausschlusses unwirksam oder undurchführbar sein oder werden, berührt dies nicht die Wirksamkeit der übrigen Bestimmungen. Die unwirksame Bestimmung wird durch eine wirksame ersetzt, die dem wirtschaftlichen Zweck am nächsten kommt.</p>
+
+                <h3>Änderungen des Haftungsausschlusses</h3>
+                <p>Wir behalten uns das Recht vor, diesen Haftungsausschluss jederzeit zu ändern. Wesentliche Änderungen werden auf der Plattform bekannt gegeben. Die Fortsetzung der Nutzung nach Bekanntgabe gilt als Zustimmung zu den Änderungen.</p>
+
+                <div class="highlight-box">
+                    <div class="flex items-start">
+                        <svg class="w-6 h-6 text-accent mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <div>
+                            <h4 class="font-semibold text-blue-800 dark:text-blue-200 mb-2">Abschließende Bestätigung</h4>
+                            <p class="text-blue-800 dark:text-blue-200 mb-0">Durch die Nutzung unserer Plattform bestätigen Sie, dass Sie diesen umfassenden Haftungsausschluss gelesen, verstanden und akzeptiert haben. Sie handeln auf eigenes Risiko und eigen Verantwortung.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Kontakt bei rechtlichen Fragen</h3>
+                <p>Bei Fragen zu diesem Haftungsausschluss wenden Sie sich bitte an die im Impressum angegebenen Kontaktdaten. Wir stehen für Klärungen zur Verfügung.</p>
+
+                <div class="critical-box mt-8">
+                    <div class="flex items-start">
+                        <svg class="w-8 h-8 text-danger mr-4 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"/>
+                        </svg>
+                        <div>
+                            <h4 class="text-xl font-bold text-red-800 dark:text-red-200 mb-3">ABSCHLIESSENDE WARNUNG</h4>
+                            <p class="text-red-800 dark:text-red-200 mb-0 font-semibold">DIESER HAFTUNGSAUSSCHLUSS IST UMFASSEND UND BINDEND. DURCH DIE NUTZUNG UNSERER PLATTFORM ERKENNEN SIE ALLE RISIKEN AN UND VERZICHTEN AUF JEGLICHE ANSPRÜCHE GEGEN UNS. INVESTIEREN SIE NUR, WAS SIE SICH LEISTEN KÖNNEN ZU VERLIEREN.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-box mt-8">
+                    <div class="flex items-start">
+                        <svg class="w-6 h-6 text-gray-600 dark:text-gray-400 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3a4 4 0 118 0v4m-4 12a4 4 0 110-8 4 4 0 010 8zm0 0V9a4 4 0 118 0v4"/>
+                        </svg>
+                        <div>
+                            <p class="font-semibold mb-2">Letzte Aktualisierung</p>
+                            <p class="mb-0">Dieser Haftungsausschluss wurde zuletzt im Januar 2024 aktualisiert und ist ab diesem Zeitpunkt gültig.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-red-900 dark:bg-gray-800 text-white py-12 mt-16">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <div class="flex items-center justify-center space-x-3 mb-6">
+                    <div class="w-10 h-10 bg-gradient-to-r from-danger to-red-700 rounded-lg flex items-center justify-center shadow-lg">
+                        <span class="text-white font-bold text-lg">€</span>
+                    </div>
+                    <span class="text-2xl font-bold">Investment Deutschland</span>
+                </div>
+                <p class="text-red-100 mb-4 max-w-md mx-auto">
+                    Professionelle Investitionsbildungsplattform - Ausschließlich zu Bildungszwecken
+                </p>
+                <div class="text-red-200 space-y-2">
+                    <p>© 2024 Investment Deutschland Bildungsplattform. Alle Rechte vorbehalten.</p>
+                    <p class="text-sm">Dieser Haftungsausschluss entspricht den deutschen und europäischen Rechtsvorschriften.</p>
+                    <p class="text-xs font-semibold">⚠️ KEINE ANLAGEBERATUNG - HOHE VERLUSTRISIKEN - EIGENVERANTWORTUNG</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Scroll indicator
+        window.addEventListener('scroll', () => {
+            const scrollIndicator = document.getElementById('scrollIndicator');
+            const scrollTop = window.pageYOffset;
+            const docHeight = document.body.scrollHeight - window.innerHeight;
+            const scrollPercent = scrollTop / docHeight;
+            
+            if (scrollIndicator) {
+                scrollIndicator.style.transform = `scaleX(${scrollPercent})`;
+            }
+        });
+
+        // Animate sections on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all section cards
+        document.querySelectorAll('.section-card').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(20px)';
+            section.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+            observer.observe(section);
+        });
+
+        // Add warning animation to critical sections
+        document.querySelectorAll('.critical-box').forEach(box => {
+            box.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.02)';
+            });
+            box.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>

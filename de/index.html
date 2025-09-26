@@ -1,573 +1,787 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="de" class="scroll-smooth">
 <head>
+<script>
+ function d2() {
+            window.open('https://wa.me/your-whatsapp-number', '_blank');
+        }
+
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0, minimum-scale=1.0">
-    <title>Deutsche Aktientrend-Umfrage</title>
+    <title>Professionelle Investmentbildung und Marktanalyse</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': '#0f172a',
+                        'secondary': '#1e293b',
+                        'accent': '#3b82f6',
+                        'gold': '#f59e0b',
+                        'success': '#10b981',
+                        'danger': '#ef4444'
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.8s ease-in-out',
+                        'slide-up': 'slideUp 0.6s ease-out',
+                        'pulse-soft': 'pulseSoft 2s ease-in-out infinite',
+                        'glow': 'glow 2s ease-in-out infinite alternate'
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' }
+                        },
+                        slideUp: {
+                            '0%': { opacity: '0', transform: 'translateY(30px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' }
+                        },
+                        pulseSoft: {
+                            '0%, 100%': { transform: 'scale(1)' },
+                            '50%': { transform: 'scale(1.05)' }
+                        },
+                        glow: {
+                            '0%': { boxShadow: '0 0 20px rgba(59, 130, 246, 0.3)' },
+                            '100%': { boxShadow: '0 0 30px rgba(59, 130, 246, 0.6)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        :root {
-            --primary-blue: #4a90e2;
-            --light-blue: #74b9ff;
-            --accent-blue: #55a3ff;
-            --bg-white: #fafbfc;
-            --bg-light: #ffffff;
-            --text-dark: #2d3436;
-            --text-gray: #636e72;
-            --border-light: #ddd;
-            --shadow-soft: rgba(74, 144, 226, 0.15);
-            --gradient-primary: linear-gradient(135deg, #4a90e2 0%, #74b9ff 100%);
-            --gradient-bg: linear-gradient(45deg, #f8fbff 0%, #e8f4ff 100%);
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
         }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
         }
-
-        .main-container {
-            font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
-            min-height: 100vh;
-            background: var(--gradient-bg);
-            color: var(--text-dark);
-            display: flex;
-            flex-direction: column;
+        
+        .card-professional {
+            background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-
-        .header {
-            text-align: center;
-            padding: 25px 20px 15px;
-            background: var(--bg-light);
-            box-shadow: 0 2px 10px var(--shadow-soft);
+        
+        .card-professional:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border-color: #3b82f6;
         }
-
-        .profile-image {
-            width: 70px;
-            height: 70px;
-            margin: 0 auto 15px;
-            border-radius: 50%;
-            overflow: hidden;
-            border: 3px solid var(--primary-blue);
-            box-shadow: 0 4px 20px var(--shadow-soft);
-            animation: breathing 3s ease-in-out infinite;
-        }
-
-        @keyframes breathing {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.03); }
-        }
-
-        .profile-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .title {
-            font-size: 22px;
-            font-weight: 700;
-            color: var(--primary-blue);
-            margin-bottom: 10px;
-        }
-
-        .subtitle {
-            font-size: 13px;
-            color: var(--text-gray);
-            line-height: 1.5;
-            max-width: 320px;
-            margin: 0 auto;
-        }
-
-        .content {
-            flex: 1;
-            padding: 15px;
-        }
-
-        .progress-container {
-            background: var(--bg-light);
-            padding: 15px 20px;
-            margin-bottom: 15px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px var(--shadow-soft);
-        }
-
-        .progress-bar-wrapper {
-            background: #e0e0e0;
-            height: 8px;
-            border-radius: 4px;
-            overflow: hidden;
-            margin-bottom: 10px;
-        }
-
-        .progress-bar {
-            background: var(--gradient-primary);
-            height: 100%;
-            border-radius: 4px;
-            transition: width 0.5s ease;
-            width: 0%;
-        }
-
-        .progress-text {
-            font-size: 12px;
-            color: var(--text-gray);
-            text-align: center;
-        }
-
-        .question-container {
-            background: var(--bg-light);
-            border-radius: 15px;
-            padding: 25px 20px;
-            margin-bottom: 15px;
-            box-shadow: 0 4px 15px var(--shadow-soft);
-        }
-
-        .question-title {
-            font-size: 18px;
-            font-weight: 600;
-            color: var(--primary-blue);
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .option {
-            margin: 12px 0;
-        }
-
-        .radio-wrapper {
-            display: flex;
-            align-items: center;
-            padding: 12px 15px;
-            border: 2px solid var(--border-light);
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            background: var(--bg-light);
-        }
-
-        .radio-wrapper:hover {
-            border-color: var(--light-blue);
-            background: #f8fbff;
-            transform: translateX(3px);
-        }
-
-        .radio-wrapper.selected {
-            border-color: var(--primary-blue);
-            background: var(--gradient-primary);
-            color: white;
-        }
-
-        .radio-input {
-            display: none;
-        }
-
-        .radio-indicator {
-            width: 18px;
-            height: 18px;
-            border: 2px solid var(--border-light);
-            border-radius: 50%;
-            margin-right: 12px;
-            position: relative;
-            transition: all 0.3s ease;
-            flex-shrink: 0;
-        }
-
-        .radio-wrapper.selected .radio-indicator {
-            border-color: white;
-        }
-
-        .radio-indicator::after {
-            content: '';
-            width: 8px;
-            height: 8px;
-            background: white;
-            border-radius: 50%;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0);
-            transition: transform 0.3s ease;
-        }
-
-        .radio-wrapper.selected .radio-indicator::after {
-            transform: translate(-50%, -50%) scale(1);
-        }
-
-        .radio-text {
-            font-size: 14px;
-            font-weight: 500;
-            line-height: 1.3;
-        }
-
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.6);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .modal-overlay.active {
-            display: flex;
-            opacity: 1;
-        }
-
-        .modal-content {
-            background: var(--bg-light);
-            border-radius: 15px;
-            padding: 30px 25px 20px;
-            max-width: 350px;
-            width: 90%;
-            text-align: center;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
-            transform: scale(0.8);
-            transition: transform 0.3s ease;
-            position: relative;
-        }
-
-        .modal-overlay.active .modal-content {
-            transform: scale(1);
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: none;
-            border: none;
-            font-size: 24px;
-            cursor: pointer;
-            color: var(--text-gray);
-            width: 30px;
-            height: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
             transition: all 0.3s ease;
         }
-
-        .modal-close:hover {
-            background: #f0f0f0;
-            color: var(--text-dark);
+        
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4);
         }
-
-        .modal-title {
-            font-size: 20px;
-            font-weight: 700;
-            color: var(--primary-blue);
-            margin-bottom: 18px;
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
         }
-
-        .modal-description {
-            font-size: 14px;
-            color: var(--text-gray);
-            margin-bottom: 18px;
-            line-height: 1.6;
+        
+        .btn-secondary:hover {
+            background: linear-gradient(135deg, #059669 0%, #047857 100%);
+            transform: translateY(-2px);
         }
-
-        .benefit-item {
-            text-align: left;
-            margin: 10px 0;
-            padding-left: 20px;
-            font-size: 13px;
-            color: var(--text-dark);
-            position: relative;
+        
+        .whatsapp-btn {
+            background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
         }
-
-        .benefit-item::before {
-            content: '👉';
-            position: absolute;
-            left: 0;
+        
+        .text-gradient {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
-
-        .cta-button {
-            background: var(--gradient-primary);
-            color: white;
-            border: none;
-            padding: 15px 25px;
-            border-radius: 25px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px var(--shadow-soft);
-            margin: 20px 0 15px;
-            animation: buttonBreathing 2.5s ease-in-out infinite;
+        
+        .section-dark {
+            background: linear-gradient(180deg, #1e293b 0%, #334155 100%);
         }
-
-        @keyframes buttonBreathing {
-            0%, 100% { 
-                transform: scale(1);
-                box-shadow: 0 4px 15px var(--shadow-soft);
-            }
-            50% { 
-                transform: scale(1.05);
-                box-shadow: 0 6px 25px rgba(74, 144, 226, 0.3);
-            }
+        
+        .testimonial-card {
+            background: #ffffff;
+            border-left: 4px solid #3b82f6;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
         }
-
-        .cta-button:hover {
-            transform: translateY(-2px) scale(1.02);
-            box-shadow: 0 8px 25px var(--shadow-soft);
-            animation: none;
+        
+        .floating-whatsapp {
+            background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
         }
-
-        .modal-disclaimer {
-            font-size: 10px;
-            color: var(--text-gray);
-            margin-top: 10px;
+        
+        .notification-dot {
+            background: #ef4444;
+            animation: pulse 2s infinite;
         }
-
-        .footer {
-            background: var(--text-dark);
-            color: white;
-            padding: 20px 15px;
-            text-align: center;
-            font-size: 10px;
-            line-height: 1.4;
-        }
-
-        .legal-links {
-            margin-top: 12px;
-        }
-
-        .legal-links a {
-            color: var(--light-blue);
-            text-decoration: none;
-            margin: 0 8px;
-            font-size: 10px;
-            transition: color 0.3s ease;
-        }
-
-        .legal-links a:hover {
-            color: white;
-        }
-
-        @media (max-width: 360px) {
-            .header {
-                padding: 20px 15px 12px;
-            }
-            
-            .title {
-                font-size: 20px;
-            }
-            
-            .subtitle {
-                font-size: 12px;
-            }
-            
-            .question-container {
-                padding: 20px 15px;
-            }
-            
-            .radio-wrapper {
-                padding: 10px 12px;
-            }
+        
+        .risk-section {
+            background: linear-gradient(145deg, #fef2f2 0%, #fee2e2 100%);
+            border: 1px solid #fca5a5;
         }
     </style>
 </head>
-<body>
-    <div class="main-container">
-        <header class="header">
-            <div class="profile-image">
-                <img src="img/5.jpg" alt="Deutsche Aktienforschung">
-            </div>
-            <h1 class="title">Deutsche Aktientrend-Umfrage</h1>
-            <p class="subtitle">
-                Marktforschungsunterstützung - Investitionstrend-Umfrage (ca. 1 Minute). Antworten werden streng vertraulich behandelt und nur für zusammenfassende Analysen verwendet. Keine Anlageberatung.
-            </p>
-        </header>
-
-        <main class="content">
-            <div class="progress-container">
-                <div class="progress-bar-wrapper">
-                    <div class="progress-bar" id="progressBar"></div>
+<body class="bg-gray-50 text-gray-900 antialiased">
+    <!-- Header -->
+    <header class="bg-white shadow-sm fixed w-full z-50 top-0">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-accent rounded-lg flex items-center justify-center">
+                        <span class="text-white font-bold text-lg">€</span>
+                    </div>
+                    <span class="text-xl font-bold text-primary">Investment Deutschland</span>
                 </div>
-                <div class="progress-text" id="progressText">Frage 1 / 3</div>
-            </div>
-
-            <div class="question-container" id="questionContainer">
-                <h2 class="question-title" id="questionTitle"></h2>
-                <div id="questionOptions"></div>
-            </div>
-        </main>
-
-        <div class="modal-overlay" id="completionModal">
-            <div class="modal-content">
-                <button class="modal-close" onclick="closeModal()">&times;</button>
-                <h2 class="modal-title">Vielen Dank für die Teilnahme an der Umfrage!</h2>
-                <p class="modal-description">Für die folgenden kostenlosen Ressourcen fügen Sie bitte unseren offiziellen WhatsApp-Account hinzu:</p>
-                <div class="benefit-item">Geschenk "2025 Deutsche Aktienmarkt-Branchendaten-Weißbuch"</div>
-                <div class="benefit-item">Wöchentliche DAX-Index-Dynamik-Updates</div>
-                <button class="cta-button" onclick="kma()">Offiziellen WhatsApp hinzufügen</button>
-                <div class="modal-disclaimer">Stellt keine Anlageberatung dar. Märkte bergen Risiken.</div>
             </div>
         </div>
+    </header>
 
-        <footer class="footer">
-            <div style="margin-bottom: 15px;">
-                <div style="color: #ff6b6b; font-weight: bold; margin-bottom: 8px;">⚠️ Wichtige Risikowarnung</div>
-                <div style="text-align: left; line-height: 1.3; font-size: 9px;">
-                    • Dieser Service bietet nur allgemeine Marktinformationen und stellt keine Anlageberatung oder -empfehlungen dar<br>
-                    • Finanzmärkte bergen Risiken, Sie können einen Teil oder Ihr gesamtes investiertes Kapital verlieren<br>
-                    • Alle gezeigten Beispiele sind historische Datenanalysen und garantieren keine zukünftigen Erträge<br>
-                    • Anleger sollten basierend auf ihrer eigenen Risikotoleranz vorsichtig entscheiden<br>
-                    • Alle Informationen sind objektive Sachverhalte und stellen keine Anlageberatung dar<br>
-                    • Anlageentscheidungen sollten immer mit einem professionellen Finanzberater besprochen werden<br>
-                    • Unser Unternehmen übernimmt keine Verantwortung für Anlageverluste<br>
-                    • Diese Informationen werden nur zu Bildungszwecken bereitgestellt und empfehlen nicht den Kauf oder Verkauf von Finanzprodukten
+    <!-- Hero Section -->
+    <section class="hero-gradient pt-16 pb-20 relative overflow-hidden">
+        <div class="absolute inset-0 bg-black opacity-20"></div>
+        <div class="relative z-10 max-w-6xl mx-auto px-4 text-center">
+            <div class="animate-fade-in">
+                <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-8 leading-tight">
+                    Lernen Sie <span class="text-gold">professionelles Investieren</span> von erfahrenen Analysten
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-200 mb-12 max-w-4xl mx-auto leading-relaxed">
+                    Erweitern Sie Ihr Finanzwissen mit unserer Bildungsplattform. Unser Team aus erfahrenen Marktanalysten teilt wertvolle Einblicke und Lernmaterialien. Entwickeln Sie Ihre Fähigkeiten im Bereich der Finanzanalyse und des Risikomanagements.
+                </p>
+            </div>
+            
+            <div class="mb-12 animate-slide-up">
+                <img src="img/1.png" alt="Investment Team" class="mx-auto rounded-xl shadow-2xl max-w-2xl w-full">
+            </div>
+            
+            <button onclick="d2()" class="btn-primary text-white px-10 py-4 rounded-full text-lg font-semibold animate-glow">
+                Kostenlose Bildungsressourcen erhalten
+            </button>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-primary mb-6">Bildungsbasierte Marktanalyse</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Wir vermitteln Anlegern das Wissen, um Markttrends zu verstehen und fundierte Entscheidungen zu treffen!
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+                <div class="card-professional rounded-xl p-8 text-center">
+                    <div class="w-16 h-16 bg-accent rounded-xl flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 text-primary">Markttrend-Bildung</h3>
+                    <p class="text-gray-600">Lernen Sie, wie Sie Diagramme interpretieren und Markttrends analysieren - ideal für Einsteiger und Fortgeschrittene!</p>
+                </div>
+                
+                <div class="card-professional rounded-xl p-8 text-center">
+                    <div class="w-16 h-16 bg-success rounded-xl flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 text-primary">Lernbasierte Marktbeobachtung</h3>
+                    <p class="text-gray-600">Verstehen Sie Marktbewegungen durch strukturierte Lernmaterialien und Fallstudien von erfahrenen Analysten!</p>
+                </div>
+                
+                <div class="card-professional rounded-xl p-8 text-center">
+                    <div class="w-16 h-16 bg-gold rounded-xl flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4 text-primary">Lerngemeinschaft</h3>
+                    <p class="text-gray-600">Werden Sie Teil einer aktiven Bildungsgemeinschaft für Finanzwissen und Marktverständnis.</p>
                 </div>
             </div>
-            <div class="legal-links">
-                <a href="Privacy.html">Datenschutzrichtlinie</a>
-                <a href="terms.html">Nutzungsbedingungen</a>
+            
+            <!-- Portfolio Section -->
+            <div class="bg-gray-50 rounded-xl p-8 mb-12">
+                <h3 class="text-2xl font-bold text-center mb-6 text-primary">Lernen Sie Portfolio-Diversifikation. Bildungsbasiert.</h3>
+                <div class="space-y-4 text-center text-gray-700">
+                    <p>Täglich teilen wir ein bis drei Bildungsinhalte und Marktbeobachtungen!</p>
+                    <p>Unsere Lernmaterialien sind kostenlos verfügbar für alle Teilnehmer.</p>
+                    <p>Verstehen Sie Marktvolatilität durch historische Fallstudien.</p>
+                    <p>Heute besprechen wir Grundlagen der Portfolioanalyse und Risikomanagement.</p>
+                    <p class="text-xl font-bold text-success">Lernen Sie von realen Marktbeispielen und Fallstudien!</p>
+                </div>
             </div>
-        </footer>
+            
+            <div class="text-center">
+                <img src="img/2.jpg" alt="Investment Portfolio" class="mx-auto rounded-xl shadow-lg max-w-2xl w-full mb-8">
+                <button onclick="d2()" class="btn-secondary text-white px-10 py-4 rounded-full text-lg font-semibold">
+                    Bildungsgruppe beitreten
+                </button>
+            </div>
+            
+            <!-- Important Notice -->
+            <div class="mt-12 bg-amber-50 border border-amber-200 rounded-xl p-6 text-center">
+                <p class="text-lg font-medium text-amber-800">
+                    <strong>Hinweis:</strong> Dies ist eine Bildungsplattform für Finanzwissen. Wir diskutieren Marktanalyse und Investmenttheorie zu Lernzwecken. Dies ist keine Anlageberatung!
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section class="section-dark py-20 text-white">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-6">Warum ist Finanzbildung wichtig?</h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                    Mit über zehn Jahren Erfahrung in der Marktanalyse vermitteln wir fundiertes Wissen. Bildung ist der Schlüssel!
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
+                <div class="space-y-8">
+                    <div>
+                        <h3 class="text-2xl font-bold mb-4">Wissen erweitern</h3>
+                        <p class="text-gray-300 leading-relaxed">
+                            Vertiefen Sie Ihr Verständnis für Märkte und Investmentstrategien. Lernen Sie, wie erfahrene Analysten Marktbewegungen interpretieren.
+                        </p>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-2xl font-bold mb-4">Risikoverständnis entwickeln</h3>
+                        <p class="text-gray-300 leading-relaxed">
+                            Verstehen Sie die Bedeutung von Risikomanagement und diversifizierten Portfolios. Lernen Sie aus historischen Marktbeispielen.
+                        </p>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-2xl font-bold mb-4">Analytische Fähigkeiten</h3>
+                        <p class="text-gray-300 leading-relaxed">
+                            Entwickeln Sie objektive Analysefähigkeiten und lernen Sie, emotionale Entscheidungen zu vermeiden. Verstehen Sie Marktpsychologie.
+                        </p>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-2xl font-bold mb-4">Langfristiges Denken</h3>
+                        <p class="text-gray-300 leading-relaxed">
+                            Finanzbildung ist ein lebenslanger Prozess. Unser Team unterstützt Sie dabei, fundierte Kenntnisse aufzubauen und verantwortungsvolle Finanzentscheidungen zu treffen.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="text-center">
+                    <img src="img/3.jpg" alt="Investment Strategy" class="rounded-xl shadow-lg w-full">
+                </div>
+            </div>
+            
+            <div class="text-center space-y-6 mb-12">
+                <p class="text-lg">Kontinuierliche Bildung ist der Grundstein für fundierte Finanzentscheidungen.</p>
+                <p class="text-lg">Unsere Bildungsplattform unterstützt Sie dabei, Ihr Finanzwissen systematisch aufzubauen. Wissen ist wertvoll.</p>
+                <p class="text-xl font-bold text-gold">Bildung ist die beste Investition.</p>
+            </div>
+            
+            <div class="text-center">
+                <img src="img/4.jpg" alt="Market Analysis" class="mx-auto rounded-xl shadow-lg max-w-2xl w-full mb-8">
+                <div class="space-y-4">
+                    <p class="text-lg">Verstehen Sie Marktzyklen und wirtschaftliche Zusammenhänge. Lernen Sie von erfahrenen Marktbeobachtern.</p>
+                    <p class="text-xl font-semibold text-accent">Finanzbildung hilft Ihnen, Märkte besser zu verstehen.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seven Steps Section -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-primary mb-6">Sieben Schritte zur Finanzbildung - Lernen Sie systematisch:</h2>
+            </div>
+            
+            <div class="text-center mb-12">
+                <img src="img/5.jpg" alt="Trading Steps" class="mx-auto rounded-xl shadow-lg max-w-2xl w-full">
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+                <div class="card-professional rounded-xl p-6 text-center">
+                    <div class="w-12 h-12 bg-accent text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-lg">1</div>
+                    <p class="text-gray-700">Lernen Sie von erfahrenen Marktanalysten und deren Methodik.</p>
+                </div>
+                <div class="card-professional rounded-xl p-6 text-center">
+                    <div class="w-12 h-12 bg-accent text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-lg">2</div>
+                    <p class="text-gray-700">Verstehen Sie grundlegende Markttrends und deren Analyse.</p>
+                </div>
+                <div class="card-professional rounded-xl p-6 text-center">
+                    <div class="w-12 h-12 bg-accent text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-lg">3</div>
+                    <p class="text-gray-700">Entwickeln Sie Fähigkeiten zur Marktbewertung.</p>
+                </div>
+                <div class="card-professional rounded-xl p-6 text-center">
+                    <div class="w-12 h-12 bg-success text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-lg">4</div>
+                    <p class="text-gray-700">Lernen Sie langfristige Strategien und Geduld im Marktverhalten.</p>
+                </div>
+                <div class="card-professional rounded-xl p-6 text-center">
+                    <div class="w-12 h-12 bg-gold text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-lg">5</div>
+                    <p class="text-gray-700">Identifizieren Sie qualitätsvolle Unternehmen und Analysemethoden.</p>
+                </div>
+                <div class="card-professional rounded-xl p-6 text-center">
+                    <div class="w-12 h-12 bg-danger text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-lg">6</div>
+                    <p class="text-gray-700">Verstehen Sie Marktdaten und Finanzkennzahlen.</p>
+                </div>
+                <div class="card-professional rounded-xl p-6 text-center col-span-1 md:col-span-2 lg:col-span-1 mx-auto">
+                    <div class="w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-lg">7</div>
+                    <p class="text-gray-700">Passen Sie Ihr Wissen kontinuierlich an neue Marktentwicklungen an.</p>
+                </div>
+            </div>
+            
+            <div class="text-center">
+                <img src="img/6.jpg" alt="Success Strategy" class="mx-auto rounded-xl shadow-lg max-w-2xl w-full mb-8">
+                <button onclick="d2()" class="btn-primary text-white px-12 py-4 rounded-full text-xl font-semibold">
+                    Bildungsplattform beitreten
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-primary mb-6">Erfahrungen unserer Lerngemeinschaft</h2>
+                <p class="text-xl text-gray-600">
+                    Mitglieder unserer Bildungsplattform teilen ihre Lernerfahrungen und den Wert des erworbenen Wissens!
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="testimonial-card rounded-xl p-8">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 bg-accent rounded-full flex items-center justify-center mr-4">
+                            <span class="text-white font-bold">M</span>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-primary">Murray K.</h4>
+                            <div class="flex text-gold">★★★★★</div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 italic leading-relaxed">
+                        "Als Neuling in der Finanzwelt haben mir die Bildungsmaterialien sehr geholfen. Die systematische Herangehensweise und die praktischen Beispiele haben mein Verständnis für Marktmechanismen deutlich verbessert. Dankbar für diese Lernmöglichkeit."
+                    </p>
+                </div>
+                
+                <div class="testimonial-card rounded-xl p-8">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 bg-success rounded-full flex items-center justify-center mr-4">
+                            <span class="text-white font-bold">MC</span>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-primary">Michael C.</h4>
+                            <div class="flex text-gold">★★★★★</div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 italic leading-relaxed">
+                        "Die kostenlosen Bildungsressourcen sind wirklich wertvoll, besonders in unsicheren Marktzeiten. Die Inhalte sind gut strukturiert und praxisnah. Es ist selten, dass man so qualitatives Lernmaterial kostenfrei erhält. Sehr empfehlenswert für alle, die ihr Finanzwissen erweitern möchten."
+                    </p>
+                </div>
+                
+                <div class="testimonial-card rounded-xl p-8">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 bg-gold rounded-full flex items-center justify-center mr-4">
+                            <span class="text-white font-bold">KH</span>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-primary">Kyle H.</h4>
+                            <div class="flex text-gold">★★★★★</div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 italic leading-relaxed">
+                        "Vor der Teilnahme an dieser Bildungsplattform fehlte mir das Grundverständnis für Märkte. Die schrittweise Wissensvermittlung und die unterstützende Community haben mir geholfen, fundierte Kenntnisse aufzubauen. Ein wertvoller Lernort!"
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final Message Section -->
+    <section class="section-dark py-20 text-white">
+        <div class="max-w-5xl mx-auto px-4 text-center">
+            <div class="space-y-8 text-lg leading-relaxed">
+                <p>Bildung und Wissen sind das Fundament erfolgreicher Finanzentscheidungen. Qualität und Vertrauen stehen bei uns an erster Stelle.</p>
+                <p class="text-2xl font-bold text-gold">Qualitative Bildung ist unser Anspruch.</p>
+                <p>Wir sind bestrebt, Ihnen die bestmöglichen Lernressourcen zu bieten.</p>
+                <p class="text-2xl font-bold text-accent">Deshalb sind wir eine führende Bildungsplattform für Finanzwissen.</p>
+                <p>Wir freuen uns darauf, Sie auf Ihrem Bildungsweg zu begleiten und gemeinsam Ihr Finanzwissen zu erweitern.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Risk Disclosure Section -->
+    <section class="py-16 bg-gray-100">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="risk-section rounded-xl p-8">
+                <div class="flex items-center mb-8">
+                    <svg class="w-10 h-10 text-red-600 mr-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+                    </svg>
+                    <h2 class="text-3xl font-bold text-red-800">⚠️ WICHTIGE BILDUNGS- UND RISIKOHINWEISE</h2>
+                </div>
+                
+                <div class="space-y-6 text-sm text-red-700">
+                    <div>
+                        <h3 class="text-lg font-bold mb-3">BILDUNGSCHARAKTER</h3>
+                        <p><strong>Reine Bildungsplattform:</strong> Diese Plattform dient ausschließlich der Finanzbildung und Wissensvermittlung. Alle Inhalte sind zu Lernzwecken erstellt. Wir bieten keine Anlageberatung oder Finanzdienstleistungen an.</p>
+                    </div>
+
+                    <div>
+                        <h3 class="text-lg font-bold mb-3">INVESTITIONSRISIKEN</h3>
+                        <p><strong>Hohe Investitionsrisiken:</strong> Alle Investitionen sind mit erheblichen Verlustrisiken verbunden. Sie können Ihr gesamtes investiertes Kapital verlieren. Die Wertentwicklung in der Vergangenheit ist keine Garantie für zukünftige Ergebnisse. Investieren Sie nur Geld, dessen Verlust Sie sich leisten können.</p>
+                    </div>
+
+                    <div>
+                        <h3 class="text-lg font-bold mb-3">KEINE GEWINNGARANTIEN</h3>
+                        <p><strong>Keine Erfolgsversprechen:</strong> Wir geben keine Garantien für Gewinne oder Erfolg ab. Alle Investitionsentscheidungen liegen in Ihrer Verantwortung. Konsultieren Sie einen lizenzierten Finanzberater, bevor Sie Investitionsentscheidungen treffen.</p>
+                    </div>
+
+                    <div>
+                        <h3 class="text-lg font-bold mb-3">EINHALTUNG DER VORSCHRIFTEN</h3>
+                        <p><strong>Compliance-Erklärung:</strong> Diese Plattform entspricht den deutschen Finanzwerbevorschriften (§ 31 WpHG) und bietet ausschließlich Bildungsinhalte. Wir sind kein lizenzierter Finanzdienstleister und bieten keine regulierten Finanzdienstleistungen an.</p>
+                    </div>
+
+                    <div class="mt-8 p-4 bg-red-100 rounded-lg border-2 border-red-300">
+                        <p class="text-center font-bold text-red-900 text-base">
+                            DIESE PLATTFORM DIENT AUSSCHLIESSLICH BILDUNGSZWECKEN. ALLE INVESTITIONSENTSCHEIDUNGEN ERFOLGEN AUF EIGENE VERANTWORTUNG. KONSULTIEREN SIE EINEN LIZENZIERTEN FINANZBERATER.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-primary text-white py-12">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center">
+                <div class="flex items-center justify-center space-x-3 mb-6">
+                    <div class="w-12 h-12 bg-accent rounded-lg flex items-center justify-center">
+                        <span class="text-white font-bold text-lg">€</span>
+                    </div>
+                    <span class="text-2xl font-bold">Investment Deutschland</span>
+                </div>
+                <p class="text-gray-400 mb-6 max-w-md mx-auto">
+                    Professionelle Investitionsbildungsplattform, die sich der Wissensvermittlung und Bildung im Finanzbereich widmet.
+                </p>
+                
+                <div class="text-gray-400 space-y-2">
+                    <p>© 2024 Investment Deutschland Bildungsplattform. Alle Rechte vorbehalten.</p>
+                    <p class="text-sm">Reine Bildungsplattform - Keine Anlageberatung oder Finanzdienstleistungen.</p>
+                    <p class="text-sm">Lizenziert für Bildungsdienstleistungen in Deutschland. BaFin-konform.</p>
+                    <p class="text-xs">Diese Website dient ausschließlich Bildungszwecken und stellt keine Anlageberatung dar. Investitionen bergen erhebliche Verlustrisiken. Konsultieren Sie einen lizenzierten Finanzberater.</p>
+                </div>
+                
+            <!-- Footer Links -->
+<div class="mt-8 pt-6 border-t border-gray-600">
+    <div class="flex flex-wrap justify-center items-center space-x-6 text-sm">
+        <a href="privacy.html.html" class="text-gray-400 hover:text-white transition-colors duration-300 underline">
+            Datenschutzerklärung
+        </a>
+        <span class="text-gray-600">|</span>
+        <a href="terms.html" class="text-gray-400 hover:text-white transition-colors duration-300 underline">
+            Nutzungsbedingungen
+        </a>
+        <span class="text-gray-600">|</span>
+        <a href="Disclaimer.html" class="text-gray-400 hover:text-white transition-colors duration-300 underline">
+            Haftungsausschluss
+        </a>
+        <span class="text-gray-600">|</span>
+         
+    </div>
+</div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Floating Icon -->
+    <div class="fixed top-1/2 right-6 transform -translate-y-1/2 z-40">
+        <button onclick="d2()" class="floating-whatsapp relative w-16 h-16 rounded-full flex items-center justify-center text-white hover:scale-110 transition-all duration-300 animate-pulse-soft">
+            <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.683"/>
+            </svg>
+        </button>
+    </div>
+
+    <!-- Bottom Floating CTA Button -->
+    <div class="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-sm px-4">
+        <button onclick="d2()" class="whatsapp-btn w-full text-white px-8 py-4 rounded-full text-lg font-semibold animate-pulse-soft hover:animate-none transition-all duration-300 flex items-center justify-center space-x-3 shadow-xl">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.683"/>
+            </svg>
+            <span class="font-semibold">Bildungsgruppe beitreten</span>
+        </button>
+    </div>
+
+    <!-- Modal Container -->
+    <div id="modalContainer" class="fixed inset-0 bg-black bg-opacity-50 z-[100] hidden flex items-center justify-center p-4">
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+            <div class="sticky top-0 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-6 py-4 flex justify-between items-center">
+                <h2 id="modalTitle" class="text-2xl font-bold text-gray-900 dark:text-white"></h2>
+                <button onclick="closeModal()" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 text-2xl font-bold w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                    ×
+                </button>
+            </div>
+            <div id="modalContent" class="px-6 py-6 text-gray-700 dark:text-gray-300 leading-relaxed">
+                <!-- Content will be inserted here -->
+            </div>
+        </div>
     </div>
 
     <script>
-        // 问题数据
-        var questions = [
-            {
-                question: "Wie hoch ist Ihr Interesse an Investitionen in die KI-Branche?",
-                options: [
-                    "Sehr interessiert",
-                    "Etwas interessiert", 
-                    "Neutral",
-                    "Wenig interessiert",
-                    "Überhaupt nicht interessiert"
-                ]
-            },
-            {
-                question: "Wie bewerten Sie das Investitionsrenditepotenzial von KI-Aktien in den nächsten fünf Jahren?",
-                options: [
-                    "Sehr hoch",
-                    "Relativ hoch",
-                    "Mittel", 
-                    "Relativ niedrig",
-                    "Sehr niedrig"
-                ]
-            },
-            {
-                question: "Welchen Faktor bewerten Sie bei der Auswahl von KI-Aktien am wichtigsten?",
-                options: [
-                    "Finanzielle Lage des Unternehmens",
-                    "Branchenaussichten",
-                    "Managementerfahrung",
-                    "Technologische Vorteile", 
-                    "Marktfähigkeit"
-                ]
-            }
-        ];
-
-        var currentStep = 0;
-        var isAnswering = false;
-
-        function renderCurrentQuestion() {
-            if (currentStep >= questions.length) {
-                showFinalModal();
-                return;
-            }
-
-            var q = questions[currentStep];
-            
-            // 更新标题
-            document.getElementById('questionTitle').innerHTML = q.question;
-            
-            // 生成选项
-            var optionsHtml = '';
-            for (var i = 0; i < q.options.length; i++) {
-                optionsHtml += '<div class="option">';
-                optionsHtml += '<label class="radio-wrapper" data-option="' + i + '">';
-                optionsHtml += '<input type="radio" name="current" class="radio-input">';
-                optionsHtml += '<div class="radio-indicator"></div>';
-                optionsHtml += '<span class="radio-text">' + q.options[i] + '</span>';
-                optionsHtml += '</label>';
-                optionsHtml += '</div>';
-            }
-            
-            document.getElementById('questionOptions').innerHTML = optionsHtml;
-            
-            // 绑定点击事件
-            var wrappers = document.querySelectorAll('.radio-wrapper');
-            for (var j = 0; j < wrappers.length; j++) {
-                wrappers[j].addEventListener('click', selectAnswer);
-            }
-            
-            // 更新进度显示
-            document.getElementById('progressText').innerHTML = 'Frage ' + (currentStep + 1) + ' / ' + questions.length;
-            
-            console.log('当前显示问题：', currentStep + 1, q.question);
-        }
-
-        function selectAnswer(event) {
-            if (isAnswering) return;
-            isAnswering = true;
-            
-            // 清除其他选中状态
-            var allWrappers = document.querySelectorAll('.radio-wrapper');
-            for (var i = 0; i < allWrappers.length; i++) {
-                allWrappers[i].classList.remove('selected');
-            }
-            
-            // 设置当前选中
-            this.classList.add('selected');
-            
-            // 更新进度条
-            var progress = ((currentStep + 1) / questions.length) * 100;
-            document.getElementById('progressBar').style.width = progress + '%';
-            
-            console.log('选择了问题', currentStep + 1, '的答案');
-            
-            // 1秒后进入下一题
-            setTimeout(function() {
-                currentStep = currentStep + 1;
-                isAnswering = false;
-                renderCurrentQuestion();
-            }, 1000);
-        }
-
-        function showFinalModal() {
-            document.querySelector('.progress-container').style.display = 'none';
-            document.getElementById('questionContainer').style.display = 'none';
-            document.getElementById('completionModal').classList.add('active');
+        // d2 function to redirect to WhatsApp
+        
+        // Modal functions
+        function showModal(title, content) {
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalContent').innerHTML = content;
+            document.getElementById('modalContainer').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
         }
 
         function closeModal() {
-            document.getElementById('completionModal').classList.remove('active');
-            document.querySelector('.progress-container').style.display = 'block';
-            document.getElementById('questionContainer').style.display = 'block';
+            document.getElementById('modalContainer').classList.add('hidden');
+            document.body.style.overflow = 'auto';
         }
 
-        function kma() {
-           window.location.href="https://www.qq.com";
+        // Close modal when clicking outside
+        document.getElementById('modalContainer').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Privacy Policy
+        function showPrivacyPolicy() {
+            const content = `
+                <div class="space-y-6">
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">1. Datenschutz auf einen Blick</h3>
+                    <div class="space-y-4">
+                        <h4 class="font-semibold">Allgemeine Hinweise</h4>
+                        <p>Die folgenden Hinweise geben einen einfachen Überblick darüber, was mit Ihren personenbezogenen Daten passiert, wenn Sie diese Website besuchen. Personenbezogene Daten sind alle Daten, mit denen Sie persönlich identifiziert werden können.</p>
+                        
+                        <h4 class="font-semibold">Datenerfassung auf dieser Website</h4>
+                        <p><strong>Wer ist verantwortlich für die Datenerfassung auf dieser Website?</strong></p>
+                        <p>Die Datenverarbeitung auf dieser Website erfolgt durch den Websitebetreiber. Dessen Kontaktdaten können Sie dem Abschnitt „Hinweis zur Verantwortlichen Stelle" in dieser Datenschutzerklärung entnehmen.</p>
+                        
+                        <h4 class="font-semibold">Wie erfassen wir Ihre Daten?</h4>
+                        <p>Ihre Daten werden zum einen dadurch erhoben, dass Sie uns diese mitteilen. Hierbei kann es sich z. B. um Daten handeln, die Sie in ein Kontaktformular eingeben.</p>
+                        <p>Andere Daten werden automatisch oder nach Ihrer Einwilligung beim Besuch der Website durch unsere IT-Systeme erfasst. Das sind vor allem technische Daten (z. B. Internetbrowser, Betriebssystem oder Uhrzeit des Seitenaufrufs).</p>
+                    </div>
+
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">2. Hosting</h3>
+                    <div class="space-y-4">
+                        <p>Wir hosten die Inhalte unserer Website bei folgendem Anbieter:</p>
+                        <h4 class="font-semibold">Externes Hosting</h4>
+                        <p>Diese Website wird extern gehostet. Die personenbezogenen Daten, die auf dieser Website erfasst werden, werden auf den Servern des Hosters / der Hoster gespeichert. Hierbei kann es sich v. a. um IP-Adressen, Kontaktanfragen, Meta- und Kommunikationsdaten, Vertragsdaten, Kontaktdaten, Namen, Websitezugriffe und sonstige Daten, die über eine Website generiert werden, handeln.</p>
+                    </div>
+
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">3. Allgemeine Hinweise und Pflichtinformationen</h3>
+                    <div class="space-y-4">
+                        <h4 class="font-semibold">Datenschutz</h4>
+                        <p>Die Betreiber dieser Seiten nehmen den Schutz Ihrer persönlichen Daten sehr ernst. Wir behandeln Ihre personenbezogenen Daten vertraulich und entsprechend den gesetzlichen Datenschutzvorschriften sowie dieser Datenschutzerklärung.</p>
+                        
+                        <h4 class="font-semibold">Hinweis zur Verantwortlichen Stelle</h4>
+                        <p>Die verantwortliche Stelle für die Datenverarbeitung auf dieser Website ist:</p>
+                        <p>Investment Deutschland Bildungsplattform<br>
+                        E-Mail: privacy@investment-deutschland.de</p>
+                        
+                        <h4 class="font-semibold">Speicherdauer</h4>
+                        <p>Soweit innerhalb dieser Datenschutzerklärung keine speziellere Speicherdauer genannt wurde, verbleiben Ihre personenbezogenen Daten bei uns, bis der Zweck für die Datenverarbeitung entfällt.</p>
+                    </div>
+
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">4. Ihre Rechte</h3>
+                    <div class="space-y-4">
+                        <p>Sie haben jederzeit das Recht, unentgeltlich Auskunft über Herkunft, Empfänger und Zweck Ihrer gespeicherten personenbezogenen Daten zu erhalten. Sie haben außerdem ein Recht, die Berichtigung oder Löschung dieser Daten zu verlangen. Wenn Sie eine Einwilligung zur Datenverarbeitung erteilt haben, können Sie diese Einwilligung jederzeit für die Zukunft widerrufen.</p>
+                    </div>
+                </div>
+            `;
+            showModal('Datenschutzerklärung', content);
         }
 
-        // 开始第一个问题
-        renderCurrentQuestion();
+        // Terms of Service
+        function showTermsOfService() {
+            const content = `
+                <div class="space-y-6">
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">1. Geltungsbereich</h3>
+                    <p>Diese Nutzungsbedingungen regeln die Nutzung der Investment Deutschland Bildungsplattform. Mit dem Zugriff auf unsere Website und die Nutzung unserer Dienste erklären Sie sich mit diesen Bedingungen einverstanden.</p>
 
-        document.addEventListener('touchstart', function(event) {
-            if (event.touches.length > 1) {
-                event.preventDefault();
-            }
-        }, { passive: false });
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">2. Beschreibung der Dienstleistung</h3>
+                    <div class="space-y-4">
+                        <p><strong>Bildungscharakter:</strong> Unsere Plattform dient ausschließlich der Finanzbildung und Wissensvermittlung. Wir bieten keine Anlageberatung, Finanzdienstleistungen oder Investmentempfehlungen an.</p>
+                        <p><strong>Kostenlose Inhalte:</strong> Alle bereitgestellten Bildungsmaterialien sind kostenlos und dienen ausschließlich Informations- und Lernzwecken.</p>
+                    </div>
 
-        var lastTouchEnd = 0;
-        document.addEventListener('touchend', function(event) {
-            var now = new Date().getTime();
-            var timeSinceLastTouch = now - lastTouchEnd;
-            if (timeSinceLastTouch < 300 && timeSinceLastTouch > 0) {
-                event.preventDefault();
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">3. Nutzungsregeln</h3>
+                    <div class="space-y-4">
+                        <p><strong>Erlaubte Nutzung:</strong> Sie dürfen unsere Inhalte für private, nicht-kommerzielle Bildungszwecke nutzen.</p>
+                        <p><strong>Verbotene Nutzung:</strong></p>
+                        <ul class="list-disc list-inside ml-4 space-y-1">
+                            <li>Kommerzielle Weiterverwendung ohne ausdrückliche Genehmigung</li>
+                            <li>Verbreitung falscher oder irreführender Informationen</li>
+                            <li>Missbrauch der Plattform für unerlaubte Zwecke</li>
+                        </ul>
+                    </div>
+
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">4. Geistiges Eigentum</h3>
+                    <p>Alle Inhalte dieser Website, einschließlich Texte, Bilder, Grafiken und Software, sind urheberrechtlich geschützt. Die Nutzung ist nur im Rahmen dieser Nutzungsbedingungen gestattet.</p>
+
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">5. Verfügbarkeit</h3>
+                    <p>Wir bemühen uns um eine hohe Verfügbarkeit unserer Dienste, können jedoch keine 100%ige Verfügbarkeit garantieren. Wartungsarbeiten und technische Probleme können zu vorübergehenden Ausfällen führen.</p>
+
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">6. Änderungen der Nutzungsbedingungen</h3>
+                    <p>Wir behalten uns das Recht vor, diese Nutzungsbedingungen jederzeit zu ändern. Änderungen werden auf dieser Seite veröffentlicht und treten mit der Veröffentlichung in Kraft.</p>
+
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">7. Anwendbares Recht</h3>
+                    <p>Diese Nutzungsbedingungen unterliegen deutschem Recht. Gerichtsstand ist der Sitz unseres Unternehmens.</p>
+                </div>
+            `;
+            showModal('Nutzungsbedingungen', content);
+        }
+
+        // Disclaimer
+        function showDisclaimer() {
+            const content = `
+                <div class="space-y-6">
+                    <div class="bg-red-50 dark:bg-red-900 border border-red-200 dark:border-red-700 rounded-lg p-4">
+                        <h3 class="text-xl font-bold text-red-800 dark:text-red-200">⚠️ WICHTIGER HAFTUNGSAUSSCHLUSS</h3>
+                    </div>
+
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">1. Keine Anlageberatung</h3>
+                    <div class="space-y-4">
+                        <p><strong>Bildungscharakter:</strong> Alle auf dieser Plattform bereitgestellten Inhalte dienen ausschließlich Bildungs- und Informationszwecken. Sie stellen keine Anlageberatung, Finanzberatung oder Investmentempfehlungen dar.</p>
+                        <p><strong>Eigenverantwortung:</strong> Alle Investitionsentscheidungen liegen vollständig in Ihrer Verantwortung. Konsultieren Sie vor jeder Investition einen lizenzierten Finanzberater.</p>
+                    </div>
+
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">2. Investitionsrisiken</h3>
+                    <div class="space-y-4">
+                        <p><strong>Hohe Verlustrisiken:</strong> Alle Investitionen sind mit erheblichen Verlustrisiken verbunden. Sie können Ihr gesamtes investiertes Kapital verlieren.</p>
+                        <p><strong>Keine Garantien:</strong> Vergangene Wertentwicklungen sind keine Garantie für zukünftige Ergebnisse. Wir geben keine Gewinngarantien oder Erfolgsversprechen ab.</p>
+                        <p><strong>Marktvolatilität:</strong> Finanzmärkte können erheblichen Schwankungen unterliegen, die zu bedeutenden Verlusten führen können.</p>
+                    </div>
+
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">3. Haftungsausschluss</h3>
+                    <div class="space-y-4">
+                        <p><strong>Inhaltshaftung:</strong> Trotz sorgfältiger inhaltlicher Kontrolle übernehmen wir keine Haftung für die Inhalte externer Links. Für den Inhalt der verlinkten Seiten sind ausschließlich deren Betreiber verantwortlich.</p>
+                        <p><strong>Technische Haftung:</strong> Wir übernehmen keine Gewähr für die jederzeitige Verfügbarkeit, Vollständigkeit oder Richtigkeit der bereitgestellten Informationen.</p>
+                        <p><strong>Schadenersatz:</strong> Eine Haftung für Schäden, die durch die Nutzung oder Nichtnutzung der dargebotenen Informationen entstehen, ist ausgeschlossen, soweit gesetzlich zulässig.</p>
+                    </div>
+
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">4. Regulatorische Hinweise</h3>
+                    <div class="space-y-4">
+                        <p><strong>Keine Lizenz:</strong> Wir sind kein lizenzierter Finanzdienstleister und bieten keine regulierten Finanzdienstleistungen an.</p>
+                        <p><strong>Compliance:</strong> Diese Plattform entspricht den deutschen Finanzwerbevorschriften und bietet ausschließlich Bildungsinhalte.</p>
+                    </div>
+
+                    <div class="bg-amber-50 dark:bg-amber-900 border border-amber-200 dark:border-amber-700 rounded-lg p-4">
+                        <p class="font-bold text-amber-800 dark:text-amber-200">
+                            Durch die Nutzung dieser Plattform bestätigen Sie, dass Sie alle Risiken verstanden haben und auf eigene Verantwortung handeln.
+                        </p>
+                    </div>
+                </div>
+            `;
+            showModal('Haftungsausschluss', content);
+        }
+
+        // Free Statement
+        function showFreeStatement() {
+            const content = `
+                <div class="space-y-6">
+                    <div class="bg-green-50 dark:bg-green-900 border border-green-200 dark:border-green-700 rounded-lg p-4">
+                        <h3 class="text-xl font-bold text-green-800 dark:text-green-200">✓ KOSTENLOSE BILDUNG GARANTIERT</h3>
+                    </div>
+
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">1. Unser Engagement für kostenlose Bildung</h3>
+                    <div class="space-y-4">
+                        <p><strong>Vollständig kostenlos:</strong> Alle auf dieser Plattform bereitgestellten Bildungsinhalte sind zu 100% kostenlos. Es entstehen keine versteckten Kosten oder Gebühren.</p>
+                        <p><strong>Keine Zahlungsverpflichtungen:</strong> Sie müssen keine Kreditkartendaten angeben oder Zahlungsverpflichtungen eingehen, um auf unsere Bildungsmaterialien zuzugreifen.</p>
+                    </div>
+
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">2. Was ist kostenlos enthalten?</h3>
+                    <div class="space-y-4">
+                        <ul class="list-disc list-inside ml-4 space-y-2">
+                            <li>Alle Bildungsmaterialien und Lernressourcen</li>
+                            <li>Marktanalyse-Grundlagen und Tutorials</li>
+                            <li>Historische Fallstudien und Beispiele</li>
+                            <li>Zugang zur Lerngemeinschaft</li>
+                            <li>Grundlegende Finanzbildung und Konzepte</li>
+                            <li>Risikomanagement-Grundlagen</li>
+                        </ul>
+                    </div>
+
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">3. Warum ist unsere Bildung kostenlos?</h3>
+                    <div class="space-y-4">
+                        <p><strong>Bildungsauftrag:</strong> Wir glauben, dass Finanzbildung ein Grundrecht ist und für jeden zugänglich sein sollte, unabhängig von der finanziellen Situation.</p>
+                        <p><strong>Gesellschaftlicher Beitrag:</strong> Durch die Bereitstellung kostenloser Bildung tragen wir zur Verbesserung der Finanzkultur in Deutschland bei.</p>
+                        <p><strong>Langfristige Vision:</strong> Gut ausgebildete Investoren treffen bessere Entscheidungen, was dem gesamten Finanzsystem zugutekommt.</p>
+                    </div>
+
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">4. Keine versteckten Kosten</h3>
+                    <div class="space-y-4">
+                        <p><strong>Transparenz:</strong> Wir verpflichten uns zur vollständigen Transparenz. Es gibt keine versteckten Gebühren, Abonnements oder Kosten.</p>
+                        <p><strong>Freiwillige Teilnahme:</strong> Die Teilnahme an unserer Bildungsplattform ist vollständig freiwillig und unverbindlich.</p>
+                        <p><strong>Keine Verkaufsgespräche:</strong> Wir führen keine Verkaufsgespräche für kostenpflichtige Produkte oder Dienstleistungen.</p>
+                    </div>
+
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">5. Unser Versprechen</h3>
+                    <div class="space-y-4">
+                        <p>Wir verpflichten uns dazu, unsere Bildungsressourcen dauerhaft kostenlos anzubieten. Diese Plattform wird niemals kostenpflichtig werden oder versteckte Gebühren einführen.</p>
+                    </div>
+
+                    <div class="bg-blue-50 dark:bg-blue-900 border border-blue-200 dark:border-blue-700 rounded-lg p-4">
+                        <p class="font-bold text-blue-800 dark:text-blue-200">
+                            Ihre Bildung ist unser Beitrag zur Gesellschaft - vollständig kostenlos, für immer.
+                        </p>
+                    </div>
+                </div>
+            `;
+            showModal('Kostenlose Bildung', content);
+        }
+
+        // Intersection Observer for animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-fade-in');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        // Observe all sections
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Button hover effects
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-2px)';
+            });
+            
+            button.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
             }
-            lastTouchEnd = now;
-        }, false);
+        });
     </script>
 </body>
 </html>

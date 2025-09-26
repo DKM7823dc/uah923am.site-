@@ -1,363 +1,646 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="de" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nutzungsbedingungen - Deutsche Aktientrend-Umfrage</title>
+    <title>Nutzungsbedingungen - Investment Deutschland Bildungsplattform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': '#0f172a',
+                        'secondary': '#1e293b',
+                        'accent': '#3b82f6',
+                        'gold': '#f59e0b',
+                        'success': '#10b981',
+                        'danger': '#ef4444'
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.6s ease-out',
+                        'slide-in': 'slideIn 0.8s ease-out'
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' }
+                        },
+                        slideIn: {
+                            '0%': { opacity: '0', transform: 'translateX(-20px)' },
+                            '100%': { opacity: '1', transform: 'translateX(0)' }
+                        }
+                    }
+                }
+            }
+        }
+
+        // Dark mode support
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.classList.add('dark');
+        }
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+            if (event.matches) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        });
+    </script>
     <style>
-        :root {
-            --primary-blue: #4a90e2;
-            --light-blue: #74b9ff;
-            --bg-light: #ffffff;
-            --text-dark: #2d3436;
-            --text-gray: #636e72;
-            --border-light: #ddd;
-            --shadow-soft: rgba(74, 144, 226, 0.15);
-            --gradient-bg: linear-gradient(45deg, #f8fbff 0%, #e8f4ff 100%);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
-            font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
-            background: var(--gradient-bg);
-            color: var(--text-dark);
-            line-height: 1.6;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        }
+        
+        .prose h1 { 
+            @apply text-4xl md:text-5xl font-bold text-primary dark:text-white mb-8 leading-tight;
+            background: linear-gradient(135deg, #0f172a 0%, #3b82f6 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .dark .prose h1 {
+            background: linear-gradient(135deg, #ffffff 0%, #3b82f6 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .prose h2 { 
+            @apply text-2xl md:text-3xl font-bold text-primary dark:text-white mt-12 mb-6 pb-3 border-b-2 border-accent/20;
+        }
+        .prose h3 { 
+            @apply text-xl md:text-2xl font-semibold text-primary dark:text-white mt-8 mb-4 flex items-center;
+        }
+        .prose h3::before {
+            content: '';
+            @apply w-1 h-6 bg-accent rounded mr-3;
+        }
+        .prose h4 { 
+            @apply text-lg md:text-xl font-semibold text-gray-800 dark:text-gray-200 mt-6 mb-3;
+        }
+        .prose p { 
+            @apply text-gray-700 dark:text-gray-300 mb-6 leading-relaxed text-base md:text-lg;
+        }
+        .prose ul { 
+            @apply list-none text-gray-700 dark:text-gray-300 mb-6 space-y-3;
+        }
+        .prose ul li {
+            @apply ml-0 pl-6 relative;
+        }
+        .prose ul li::before {
+            content: '•';
+            @apply absolute left-0 text-accent font-bold text-xl;
+        }
+        .prose ol { 
+            @apply list-decimal list-inside text-gray-700 dark:text-gray-300 mb-6 space-y-3;
+        }
+        .prose strong { 
+            @apply font-semibold text-gray-900 dark:text-gray-100;
+        }
+        .prose em { 
+            @apply italic;
+        }
+        
+        .highlight-box {
+            @apply bg-gradient-to-r from-blue-50 to-blue-100 dark:from-blue-900/50 dark:to-blue-800/50 border-l-4 border-accent rounded-r-lg p-6 my-8 shadow-lg;
+        }
+        
+        .warning-box {
+            @apply bg-gradient-to-r from-amber-50 to-amber-100 dark:from-amber-900/50 dark:to-amber-800/50 border-l-4 border-amber-500 rounded-r-lg p-6 my-8 shadow-lg;
+        }
+        
+        .info-box {
+            @apply bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-800/50 dark:to-gray-700/50 border-l-4 border-gray-400 rounded-r-lg p-6 my-8 shadow-lg;
         }
 
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
+        .success-box {
+            @apply bg-gradient-to-r from-green-50 to-green-100 dark:from-green-900/50 dark:to-green-800/50 border-l-4 border-success rounded-r-lg p-6 my-8 shadow-lg;
         }
 
-        .header {
-            text-align: center;
-            background: var(--bg-light);
-            padding: 30px 20px;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px var(--shadow-soft);
-            margin-bottom: 30px;
+        .danger-box {
+            @apply bg-gradient-to-r from-red-50 to-red-100 dark:from-red-900/50 dark:to-red-800/50 border-l-4 border-danger rounded-r-lg p-6 my-8 shadow-lg;
         }
 
-        .title {
-            font-size: 28px;
-            font-weight: 700;
-            color: var(--primary-blue);
-            margin-bottom: 10px;
+        .section-card {
+            @apply bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 mb-8 border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all duration-300;
         }
 
-        .subtitle {
-            font-size: 16px;
-            color: var(--text-gray);
+        .table-of-contents {
+            @apply bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 mb-8 border border-gray-200 dark:border-gray-700;
         }
 
-        .content {
-            background: var(--bg-light);
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px var(--shadow-soft);
+        .toc-link {
+            @apply text-accent hover:text-blue-700 dark:hover:text-blue-300 transition-colors duration-200 block py-2 px-4 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700;
         }
 
-        .section {
-            margin-bottom: 30px;
-        }
-
-        .section-title {
-            font-size: 20px;
-            font-weight: 600;
-            color: var(--primary-blue);
-            margin-bottom: 15px;
-            padding-bottom: 8px;
-            border-bottom: 2px solid var(--border-light);
-        }
-
-        .subsection {
-            margin-bottom: 20px;
-        }
-
-        .subsection-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: var(--text-dark);
-            margin-bottom: 10px;
-        }
-
-        .text {
-            font-size: 14px;
-            color: var(--text-dark);
-            margin-bottom: 10px;
-        }
-
-        .list {
-            margin-left: 20px;
-            margin-bottom: 15px;
-        }
-
-        .list li {
-            margin-bottom: 8px;
-            font-size: 14px;
-            color: var(--text-dark);
-        }
-
-        .highlight {
-            background: #fff3cd;
-            padding: 15px;
-            border-left: 4px solid #ffc107;
-            border-radius: 5px;
-            margin: 15px 0;
-        }
-
-        .warning {
-            background: #f8d7da;
-            padding: 15px;
-            border-left: 4px solid #dc3545;
-            border-radius: 5px;
-            margin: 15px 0;
-        }
-
-        .info {
-            background: #d1ecf1;
-            padding: 15px;
-            border-left: 4px solid var(--primary-blue);
-            border-radius: 5px;
-            margin: 15px 0;
-        }
-
-        .date {
-            text-align: center;
-            color: var(--text-gray);
-            font-size: 12px;
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid var(--border-light);
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                padding: 10px;
-            }
-            
-            .header, .content {
-                padding: 20px 15px;
-            }
-            
-            .title {
-                font-size: 24px;
-            }
-            
-            .section-title {
-                font-size: 18px;
-            }
+        .scroll-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #3b82f6, #1d4ed8);
+            transform-origin: left;
+            z-index: 9999;
         }
     </style>
 </head>
-<body>
-    <div class="container">
-        <div class="header">
-            <h1 class="title">Nutzungsbedingungen</h1>
-            <p class="subtitle">Deutsche Aktientrend-Umfrage & Marktforschung</p>
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 antialiased">
+    <!-- Scroll Indicator -->
+    <div class="scroll-indicator" id="scrollIndicator"></div>
+
+    <!-- Header -->
+    <header class="bg-white dark:bg-gray-800 shadow-lg sticky top-0 z-50 backdrop-blur-sm bg-white/95 dark:bg-gray-800/95">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-gradient-to-r from-accent to-blue-700 rounded-lg flex items-center justify-center shadow-lg">
+                        <span class="text-white font-bold text-lg">€</span>
+                    </div>
+                    <span class="text-xl font-bold text-primary dark:text-white">Investment Deutschland</span>
+                </div>
+                <button onclick="window.history.back()" class="flex items-center space-x-2 text-accent hover:text-blue-700 dark:hover:text-blue-300 font-medium transition-colors duration-200 px-4 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                    </svg>
+                    <span>Zurück</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-br from-primary via-secondary to-slate-800 text-white py-16">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="animate-fade-in">
+                <h1 class="text-4xl md:text-6xl font-bold mb-6">Nutzungsbedingungen</h1>
+                <p class="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+                    Richtlinien für die verantwortungsvolle Nutzung unserer Bildungsplattform
+                </p>
+            </div>
+            
+            <div class="mt-12 animate-slide-in">
+                <div class="highlight-box bg-white/10 border-white/20 backdrop-blur-sm">
+                    <div class="flex items-center justify-center mb-4">
+                        <svg class="w-8 h-8 text-accent mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v11a2 2 0 002 2h5.586l1.707-1.707A1 1 0 0014 18h-1v-3a1 1 0 011-1h3a1 1 0 011 1v3h1a1 1 0 001-1V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+                        </svg>
+                        <span class="text-xl font-semibold text-white">Gültig ab Januar 2024</span>
+                    </div>
+                    <p class="text-white/90 mb-0">
+                        Diese Nutzungsbedingungen regeln die Verwendung der Investment Deutschland Bildungsplattform und definieren die Rechte und Pflichten aller Nutzer
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <!-- Table of Contents -->
+        <div class="table-of-contents animate-fade-in">
+            <h2 class="text-2xl font-bold text-primary dark:text-white mb-6 flex items-center">
+                <svg class="w-6 h-6 text-accent mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/>
+                </svg>
+                Inhaltsverzeichnis
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <a href="#section1" class="toc-link">1. Geltungsbereich</a>
+                <a href="#section2" class="toc-link">2. Beschreibung der Dienstleistung</a>
+                <a href="#section3" class="toc-link">3. Nutzungsregeln</a>
+                <a href="#section4" class="toc-link">4. Geistiges Eigentum</a>
+                <a href="#section5" class="toc-link">5. Haftungsausschluss</a>
+                <a href="#section6" class="toc-link">6. Verfügbarkeit</a>
+                <a href="#section7" class="toc-link">7. Datenschutz</a>
+                <a href="#section8" class="toc-link">8. Änderungen</a>
+                <a href="#section9" class="toc-link">9. Beendigung</a>
+                <a href="#section10" class="toc-link">10. Anwendbares Recht</a>
+            </div>
         </div>
 
-        <div class="content">
-            <div class="section">
-                <h2 class="section-title">1. Geltungsbereich und Vertragsgegenstand</h2>
-                <div class="text">
-                    Diese Nutzungsbedingungen regeln die Nutzung unserer Marktforschungsumfrage zu deutschen Aktientrends und KI-Investitionen sowie die damit verbundenen kostenlosen Informationsservices.
-                </div>
-                <div class="info">
-                    <strong>Wichtiger Hinweis:</strong> Durch die Teilnahme an der Umfrage oder die Anmeldung zu unserem WhatsApp-Service stimmen Sie diesen Nutzungsbedingungen zu.
-                </div>
-            </div>
-
-            <div class="section">
-                <h2 class="section-title">2. Leistungsbeschreibung</h2>
+        <div class="prose max-w-none">
+            <!-- Section 1 -->
+            <div id="section1" class="section-card animate-fade-in">
+                <h2>1. Geltungsbereich</h2>
                 
-                <div class="subsection">
-                    <h3 class="subsection-title">2.1 Umfrage-Service</h3>
-                    <div class="text">Wir bieten eine kostenlose Marktforschungsumfrage zu folgenden Themen:</div>
-                    <ul class="list">
-                        <li>Interesse an KI-Branche Investitionen</li>
-                        <li>Bewertung des Investitionsrenditepotenzials von KI-Aktien</li>
-                        <li>Faktoren bei der Auswahl von KI-Aktien</li>
-                        <li>Allgemeine Markttrends im deutschen Aktienmarkt</li>
-                    </ul>
-                </div>
+                <h3>Anwendung der Nutzungsbedingungen</h3>
+                <p>Diese Nutzungsbedingungen regeln die Nutzung der Investment Deutschland Bildungsplattform (nachfolgend "Plattform" genannt). Mit dem Zugriff auf unsere Website, der Nutzung unserer Dienste oder der Teilnahme an unseren Bildungsangeboten erklären Sie sich mit diesen Nutzungsbedingungen einverstanden.</p>
 
-                <div class="subsection">
-                    <h3 class="subsection-title">2.2 Kostenlose Informationsservices</h3>
-                    <div class="text">Bei Anmeldung über WhatsApp erhalten Sie:</div>
-                    <ul class="list">
-                        <li>Das "2025 Deutsche Aktienmarkt-Branchendaten-Weißbuch"</li>
-                        <li>Wöchentliche DAX-Index-Dynamik-Updates</li>
-                        <li>Allgemeine Marktinformationen und Bildungsressourcen</li>
-                    </ul>
-                </div>
-            </div>
+                <h3>Geltungsbereich der Plattform</h3>
+                <p>Unsere Plattform dient ausschließlich der Finanzbildung und Wissensvermittlung. Wir bieten keine Anlageberatung, Finanzdienstleistungen, Investmentempfehlungen oder andere regulierte Finanzdienstleistungen an.</p>
 
-            <div class="section">
-                <h2 class="section-title">3. Nutzungsrechte und -pflichten</h2>
-                
-                <div class="subsection">
-                    <h3 class="subsection-title">3.1 Nutzungsrechte</h3>
-                    <div class="text">Sie erhalten das Recht zur:</div>
-                    <ul class="list">
-                        <li>Teilnahme an der Marktforschungsumfrage</li>
-                        <li>Nutzung der bereitgestellten Informationen für private Zwecke</li>
-                        <li>Abmeldung von Services jederzeit ohne Angabe von Gründen</li>
-                    </ul>
-                </div>
-
-                <div class="subsection">
-                    <h3 class="subsection-title">3.2 Nutzungspflichten</h3>
-                    <div class="text">Sie verpflichten sich:</div>
-                    <ul class="list">
-                        <li>Wahrheitsgemäße Angaben in der Umfrage zu machen</li>
-                        <li>Die Services nicht für kommerzielle Zwecke zu nutzen</li>
-                        <li>Keine Inhalte zu verbreiten, die gegen geltendes Recht verstoßen</li>
-                        <li>Die bereitgestellten Informationen nicht als Anlageberatung zu interpretieren</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="section">
-                <h2 class="section-title">4. Haftungsausschluss und Investitionshinweise</h2>
-                
-                <div class="warning">
-                    <strong>⚠️ Wichtiger Investitionshinweis:</strong><br>
-                    Alle bereitgestellten Informationen dienen ausschließlich Bildungs- und Informationszwecken und stellen keine Anlageberatung, Kaufempfehlung oder Aufforderung zum Handel dar.
-                </div>
-
-                <div class="subsection">
-                    <h3 class="subsection-title">4.1 Keine Anlageberatung</h3>
-                    <div class="text">
-                        Wir sind kein zugelassener Anlageberater und bieten keine individuellen Anlageempfehlungen. Alle Informationen sind allgemeiner Natur und berücksichtigen nicht Ihre persönlichen Umstände.
+                <div class="info-box">
+                    <div class="flex items-start">
+                        <svg class="w-6 h-6 text-gray-600 dark:text-gray-400 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <div>
+                            <p class="font-semibold mb-2">Wichtiger Hinweis</p>
+                            <p class="mb-0">Durch die Nutzung unserer Plattform bestätigen Sie, dass Sie diese Nutzungsbedingungen gelesen, verstanden und akzeptiert haben. Falls Sie mit diesen Bedingungen nicht einverstanden sind, dürfen Sie die Plattform nicht nutzen.</p>
+                        </div>
                     </div>
                 </div>
 
-                <div class="subsection">
-                    <h3 class="subsection-title">4.2 Risiken von KI-Aktien</h3>
-                    <div class="text">Investitionen in KI-Aktien und Technologiewerte bergen besondere Risiken:</div>
-                    <ul class="list">
-                        <li>Hohe Volatilität und Kursschwankungen</li>
-                        <li>Technologische Disruption und Marktunsicherheiten</li>
-                        <li>Regulatorische Risiken</li>
-                        <li>Totalverlustrisiko</li>
-                    </ul>
+                <h3>Änderungen der Nutzungsbedingungen</h3>
+                <p>Wir behalten uns das Recht vor, diese Nutzungsbedingungen jederzeit zu ändern. Wesentliche Änderungen werden wir rechtzeitig auf der Plattform bekannt geben. Die Fortsetzung der Nutzung nach Bekanntgabe von Änderungen gilt als Zustimmung zu den geänderten Bedingungen.</p>
+            </div>
+
+            <!-- Section 2 -->
+            <div id="section2" class="section-card animate-fade-in">
+                <h2>2. Beschreibung der Dienstleistung</h2>
+                
+                <h3>Bildungscharakter der Plattform</h3>
+                <p>Unsere Plattform dient ausschließlich der Finanzbildung und Wissensvermittlung. Wir stellen Bildungsmaterialien, Lernressourcen und Informationen zu Finanzthemen zur Verfügung, um das Verständnis für Märkte, Investmentstrategien und Risikomanagement zu fördern.</p>
+
+                <div class="success-box">
+                    <div class="flex items-start">
+                        <svg class="w-6 h-6 text-success mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                        </svg>
+                        <div>
+                            <h4 class="font-semibold text-green-800 dark:text-green-200 mb-2">Kostenlose Bildungsangebote</h4>
+                            <p class="text-green-800 dark:text-green-200 mb-0">Alle unsere Bildungsinhalte sind vollständig kostenlos und dienen ausschließlich Informations- und Lernzwecken. Es entstehen keine versteckten Kosten oder Gebühren.</p>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="subsection">
-                    <h3 class="subsection-title">4.3 Haftungsbeschränkung</h3>
-                    <div class="text">
-                        Wir haften nicht für Verluste oder Schäden, die durch die Nutzung unserer Informationen entstehen. Investieren Sie nur Kapital, dessen Verlust Sie sich leisten können.
+                <h3>Verfügbare Dienste</h3>
+                <ul>
+                    <li>Bildungsmaterialien und Lernressourcen</li>
+                    <li>Marktanalyse-Grundlagen und Tutorials</li>
+                    <li>Historische Fallstudien und Beispiele</li>
+                    <li>Zugang zur Lerngemeinschaft</li>
+                    <li>Grundlegende Finanzbildung und Konzepte</li>
+                    <li>Risikomanagement-Grundlagen</li>
+                </ul>
+
+                <h3>Ausdrückliche Ausschlüsse</h3>
+                <div class="danger-box">
+                    <div class="flex items-start">
+                        <svg class="w-6 h-6 text-danger mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"/>
+                        </svg>
+                        <div>
+                            <p class="font-semibold text-red-800 dark:text-red-200 mb-2">Wir bieten NICHT an:</p>
+                            <ul class="text-red-800 dark:text-red-200 space-y-1">
+                                <li>Individuelle Anlageberatung</li>
+                                <li>Finanzdienstleistungen</li>
+                                <li>Investmentempfehlungen</li>
+                                <li>Portfolio-Management</li>
+                                <li>Handelssignale oder -tipps</li>
+                                <li>Gewinngarantien oder Erfolgsversprechen</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="section">
-                <h2 class="section-title">5. Geistige Eigentumsrechte</h2>
-                <div class="text">
-                    Alle Inhalte, einschließlich Texte, Grafiken, Berichte und Daten, sind urheberrechtlich geschützt. Eine Vervielfältigung oder Weiterverbreitung ohne ausdrückliche Genehmigung ist untersagt.
-                </div>
-                <div class="subsection">
-                    <h3 class="subsection-title">5.1 Erlaubte Nutzung</h3>
-                    <div class="text">Sie dürfen die bereitgestellten Informationen für private, nicht-kommerzielle Zwecke nutzen.</div>
-                </div>
-            </div>
+            <!-- Section 3 -->
+            <div id="section3" class="section-card animate-fade-in">
+                <h2>3. Nutzungsregeln</h2>
+                
+                <h3>Erlaubte Nutzung</h3>
+                <p>Sie dürfen unsere Plattform und die bereitgestellten Inhalte für folgende Zwecke nutzen:</p>
+                <ul>
+                    <li>Private, nicht-kommerzielle Bildungszwecke</li>
+                    <li>Persönliche Weiterbildung im Finanzbereich</li>
+                    <li>Teilnahme an Bildungsaktivitäten und Diskussionen</li>
+                    <li>Zugriff auf Lernmaterialien für den eigenen Gebrauch</li>
+                </ul>
 
-            <div class="section">
-                <h2 class="section-title">6. WhatsApp-Integration</h2>
-                <div class="text">
-                    Bei der Nutzung unseres WhatsApp-Services gelten zusätzlich die Nutzungsbedingungen von WhatsApp/Meta. Wir sind nicht verantwortlich für die WhatsApp-Plattform oder deren Verfügbarkeit.
-                </div>
-                <div class="highlight">
-                    <strong>Hinweis:</strong> Der WhatsApp-Service kann jederzeit eingestellt werden. Eine Abmeldung ist jederzeit möglich.
-                </div>
-            </div>
-
-            <div class="section">
-                <h2 class="section-title">7. Datenschutz</h2>
-                <div class="text">
-                    Die Erhebung und Verarbeitung personenbezogener Daten erfolgt gemäß unserer separaten Datenschutzrichtlinie und den geltenden Datenschutzgesetzen (DSGVO).
-                </div>
-                <div class="subsection">
-                    <h3 class="subsection-title">7.1 Umfragedaten</h3>
-                    <div class="text">
-                        Alle Umfrageantworten werden anonymisiert und ausschließlich für statistische Auswertungen verwendet.
+                <h3>Verbotene Nutzung</h3>
+                <div class="warning-box">
+                    <div class="flex items-start">
+                        <svg class="w-6 h-6 text-amber-600 dark:text-amber-400 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728L5.636 5.636m12.728 12.728L12 12m6.364 6.364L12 12m0 0L5.636 5.636M12 12l6.364-6.364M12 12l-6.364 6.364"/>
+                        </svg>
+                        <div>
+                            <p class="font-semibold text-amber-800 dark:text-amber-200 mb-2">Folgende Aktivitäten sind strengstens untersagt:</p>
+                            <ul class="text-amber-800 dark:text-amber-200 space-y-1">
+                                <li>Kommerzielle Weiterverwendung ohne ausdrückliche Genehmigung</li>
+                                <li>Verbreitung falscher oder irreführender Informationen</li>
+                                <li>Missbrauch der Plattform für unerlaubte Zwecke</li>
+                                <li>Verletzung von Urheberrechten oder anderen Schutzrechten</li>
+                                <li>Störung des Betriebs oder der Sicherheit der Plattform</li>
+                                <li>Spam, Werbung oder unerwünschte Kommunikation</li>
+                                <li>Bereitstellung von Anlageberatung oder Handelstipps</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="section">
-                <h2 class="section-title">8. Verfügbarkeit und Service-Änderungen</h2>
-                <div class="text">
-                    Wir bemühen uns um eine kontinuierliche Verfügbarkeit unserer Services, können jedoch keine Garantie dafür übernehmen. Wir behalten uns vor:
-                </div>
-                <ul class="list">
-                    <li>Services temporär zu unterbrechen (z.B. für Wartungsarbeiten)</li>
-                    <li>Inhalte und Services zu ändern oder einzustellen</li>
-                    <li>Diese Nutzungsbedingungen anzupassen</li>
+                <h3>Nutzerverhalten</h3>
+                <p>Als Nutzer unserer Plattform verpflichten Sie sich zu einem respektvollen und konstruktiven Umgang. Dies umfasst:</p>
+                <ul>
+                    <li>Respektvoller Umgang mit anderen Nutzern</li>
+                    <li>Wahrheitsgemäße Angaben bei der Registrierung</li>
+                    <li>Schutz Ihrer Zugangsdaten</li>
+                    <li>Einhaltung aller anwendbaren Gesetze</li>
+                    <li>Meldung von Missbrauch oder Problemen</li>
                 </ul>
             </div>
 
-            <div class="section">
-                <h2 class="section-title">9. Beendigung der Nutzung</h2>
+            <!-- Section 4 -->
+            <div id="section4" class="section-card animate-fade-in">
+                <h2>4. Geistiges Eigentum</h2>
                 
-                <div class="subsection">
-                    <h3 class="subsection-title">9.1 Durch den Nutzer</h3>
-                    <div class="text">
-                        Sie können die Nutzung jederzeit ohne Angabe von Gründen beenden und sich von allen Services abmelden.
+                <h3>Urheberrechte</h3>
+                <p>Alle Inhalte dieser Plattform, einschließlich aber nicht beschränkt auf Texte, Bilder, Grafiken, Videos, Audio-Inhalte, Software und Design-Elemente, sind urheberrechtlich geschützt und Eigentum der Investment Deutschland Bildungsplattform oder unserer Lizenzgeber.</p>
+
+                <h3>Nutzungsrechte</h3>
+                <p>Wir gewähren Ihnen ein begrenztes, nicht-exklusives, nicht übertragbares Recht zur Nutzung unserer Inhalte für die in diesen Nutzungsbedingungen erlaubten Zwecke. Dieses Recht ist widerruflich und kann bei Verstößen gegen diese Bedingungen entzogen werden.</p>
+
+                <div class="info-box">
+                    <div class="flex items-start">
+                        <svg class="w-6 h-6 text-gray-600 dark:text-gray-400 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <div>
+                            <p class="font-semibold mb-2">Erlaubte Nutzung von Inhalten</p>
+                            <p class="mb-0">Sie dürfen unsere Inhalte für persönliche Bildungszwecke verwenden, aber nicht reproduzieren, verbreiten, modifizieren oder anderweitig verwenden, ohne unsere ausdrückliche schriftliche Genehmigung.</p>
+                        </div>
                     </div>
                 </div>
 
-                <div class="subsection">
-                    <h3 class="subsection-title">9.2 Durch uns</h3>
-                    <div class="text">
-                        Wir können die Bereitstellung von Services bei Missbrauch oder Verstoß gegen diese Bedingungen einstellen.
+                <h3>Markenzeichen</h3>
+                <p>Alle Markenzeichen, Logos und Dienstleistungsmarken, die auf dieser Plattform angezeigt werden, sind Eigentum ihrer jeweiligen Inhaber. Die Nutzung dieser Markenzeichen ohne ausdrückliche Genehmigung ist untersagt.</p>
+
+                <h3>Benutzer-generierte Inhalte</h3>
+                <p>Wenn Sie Inhalte auf unserer Plattform erstellen oder teilen (z.B. in Diskussionsforen), gewähren Sie uns eine nicht-exklusive, gebührenfreie Lizenz zur Nutzung, Reproduktion und Verbreitung dieser Inhalte im Rahmen unserer Bildungsdienstleistungen.</p>
+            </div>
+
+            <!-- Section 5 -->
+            <div id="section5" class="section-card animate-fade-in">
+                <h2>5. Haftungsausschluss</h2>
+                
+                <h3>Keine Anlageberatung</h3>
+                <div class="danger-box">
+                    <div class="flex items-start">
+                        <svg class="w-6 h-6 text-danger mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"/>
+                        </svg>
+                        <div>
+                            <p class="font-semibold text-red-800 dark:text-red-200 mb-2">WICHTIGER HAFTUNGSAUSSCHLUSS</p>
+                            <p class="text-red-800 dark:text-red-200 mb-0">Alle auf dieser Plattform bereitgestellten Inhalte dienen ausschließlich Bildungs- und Informationszwecken. Sie stellen keine Anlageberatung, Finanzberatung oder Investmentempfehlungen dar. Alle Investitionsentscheidungen liegen vollständig in Ihrer Verantwortung.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Investitionsrisiken</h3>
+                <p>Wir weisen ausdrücklich darauf hin, dass alle Investitionen mit erheblichen Verlustrisiken verbunden sind. Sie können Ihr gesamtes investiertes Kapital verlieren. Vergangene Wertentwicklungen sind keine Garantie für zukünftige Ergebnisse.</p>
+
+                <h3>Haftungsbegrenzung</h3>
+                <p>Soweit gesetzlich zulässig, haften wir nicht für:</p>
+                <ul>
+                    <li>Direkte, indirekte, zufällige oder Folgeschäden</li>
+                    <li>Verluste durch Investitionsentscheidungen</li>
+                    <li>Technische Ausfälle oder Unterbrechungen</li>
+                    <li>Verlust von Daten oder Informationen</li>
+                    <li>Schäden durch Nutzung von Drittanbieter-Links</li>
+                </ul>
+
+                <h3>Eigenverantwortung</h3>
+                <p>Sie erkennen an und stimmen zu, dass die Nutzung unserer Plattform auf eigenes Risiko erfolgt. Sie sind allein verantwortlich für alle Entscheidungen, die Sie aufgrund der auf unserer Plattform erhaltenen Informationen treffen.</p>
+            </div>
+
+            <!-- Section 6 -->
+            <div id="section6" class="section-card animate-fade-in">
+                <h2>6. Verfügbarkeit der Plattform</h2>
+                
+                <h3>Bemühungen um Verfügbarkeit</h3>
+                <p>Wir bemühen uns um eine hohe Verfügbarkeit unserer Plattform und Dienste. Jedoch können wir keine 100%ige Verfügbarkeit garantieren. Technische Probleme, Wartungsarbeiten oder andere Umstände können zu vorübergehenden Ausfällen oder Einschränkungen führen.</p>
+
+                <h3>Geplante Wartungsarbeiten</h3>
+                <p>Wir behalten uns das Recht vor, die Plattform für Wartungsarbeiten, Updates oder Verbesserungen vorübergehend offline zu nehmen. Wir werden versuchen, solche Arbeiten zu Zeiten geringer Nutzung durchzuführen und nach Möglichkeit im Voraus anzukündigen.</p>
+
+                <h3>Technische Anforderungen</h3>
+                <p>Für die optimale Nutzung unserer Plattform sind folgende technische Voraussetzungen empfohlen:</p>
+                <ul>
+                    <li>Aktueller Webbrowser mit JavaScript-Unterstützung</li>
+                    <li>Stabile Internetverbindung</li>
+                    <li>Aktuelle Sicherheitssoftware</li>
+                </ul>
+
+                <div class="info-box">
+                    <div class="flex items-start">
+                        <svg class="w-6 h-6 text-gray-600 dark:text-gray-400 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <div>
+                            <p class="font-semibold mb-2">Support und Hilfe</p>
+                            <p class="mb-0">Bei technischen Problemen oder Fragen zur Nutzung stehen wir Ihnen gerne zur Verfügung. Kontaktinformationen finden Sie in unserem Impressum.</p>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="section">
-                <h2 class="section-title">10. Marktforschung und Anonymität</h2>
-                <div class="text">
-                    Die Umfrageergebnisse dienen ausschließlich wissenschaftlichen Marktforschungszwecken. Alle Daten werden anonymisiert und in aggregierter Form ausgewertet. Eine Rückführung auf Einzelpersonen ist nicht möglich.
+            <!-- Section 7 -->
+            <div id="section7" class="section-card animate-fade-in">
+                <h2>7. Datenschutz</h2>
+                
+                <h3>Datenschutzerklärung</h3>
+                <p>Der Schutz Ihrer persönlichen Daten ist uns wichtig. Unsere detaillierte Datenschutzerklärung informiert Sie über die Erhebung, Verarbeitung und Nutzung Ihrer personenbezogenen Daten im Rahmen der Plattformnutzung.</p>
+
+                <h3>Datenverarbeitung</h3>
+                <p>Wir verarbeiten Ihre Daten ausschließlich im Rahmen der geltenden Datenschutzgesetze, insbesondere der Datenschutz-Grundverordnung (DSGVO). Die Rechtsgrundlagen und Zwecke der Datenverarbeitung sind in unserer Datenschutzerklärung detailliert aufgeführt.</p>
+
+                <h3>Ihre Rechte</h3>
+                <p>Sie haben umfassende Rechte bezüglich Ihrer personenbezogenen Daten, einschließlich:</p>
+                <ul>
+                    <li>Recht auf Auskunft</li>
+                    <li>Recht auf Berichtigung</li>
+                    <li>Recht auf Löschung</li>
+                    <li>Recht auf Einschränkung der Verarbeitung</li>
+                    <li>Recht auf Datenübertragbarkeit</li>
+                    <li>Widerspruchsrecht</li>
+                </ul>
+            </div>
+
+            <!-- Section 8 -->
+            <div id="section8" class="section-card animate-fade-in">
+                <h2>8. Änderungen der Nutzungsbedingungen</h2>
+                
+                <h3>Recht zur Änderung</h3>
+                <p>Wir behalten uns das Recht vor, diese Nutzungsbedingungen jederzeit zu ändern oder zu ergänzen. Dies kann erforderlich werden aufgrund von:</p>
+                <ul>
+                    <li>Änderungen in der Gesetzgebung</li>
+                    <li>Neuen oder geänderten Dienstleistungen</li>
+                    <li>Technischen Entwicklungen</li>
+                    <li>Sicherheitsanforderungen</li>
+                </ul>
+
+                <h3>Benachrichtigung über Änderungen</h3>
+                <p>Wesentliche Änderungen dieser Nutzungsbedingungen werden wir rechtzeitig vor ihrem Inkrafttreten auf der Plattform bekannt geben. Bei geringfügigen Änderungen erfolgt die Bekanntgabe durch Aktualisierung dieser Seite.</p>
+
+                <div class="warning-box">
+                    <div class="flex items-start">
+                        <svg class="w-6 h-6 text-amber-600 dark:text-amber-400 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"/>
+                        </svg>
+                        <div>
+                            <p class="font-semibold text-amber-800 dark:text-amber-200 mb-2">Zustimmung zu Änderungen</p>
+                            <p class="text-amber-800 dark:text-amber-200 mb-0">Die Fortsetzung der Nutzung unserer Plattform nach Bekanntgabe von Änderungen gilt als Zustimmung zu den geänderten Nutzungsbedingungen. Falls Sie mit den Änderungen nicht einverstanden sind, können Sie die Nutzung einstellen.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Aktuelle Version</h3>
+                <p>Die jeweils aktuelle Version dieser Nutzungsbedingungen ist auf unserer Plattform verfügbar. Wir empfehlen Ihnen, diese regelmäßig zu überprüfen, um über Änderungen informiert zu bleiben.</p>
+            </div>
+
+            <!-- Section 9 -->
+            <div id="section9" class="section-card animate-fade-in">
+                <h2>9. Beendigung der Nutzung</h2>
+                
+                <h3>Beendigung durch den Nutzer</h3>
+                <p>Sie können die Nutzung unserer Plattform jederzeit ohne Angabe von Gründen beenden. Falls Sie ein Nutzerkonto haben, können Sie dieses jederzeit löschen oder die Löschung bei uns beantragen.</p>
+
+                <h3>Beendigung durch uns</h3>
+                <p>Wir behalten uns das Recht vor, Ihre Nutzung der Plattform zu beenden oder einzuschränken, wenn:</p>
+                <ul>
+                    <li>Sie gegen diese Nutzungsbedingungen verstoßen</li>
+                    <li>Sie missbräuchlich oder rechtswidrig handeln</li>
+                    <li>Sicherheitsrisiken entstehen</li>
+                    <li>Wir den Betrieb der Plattform einstellen</li>
+                </ul>
+
+                <h3>Folgen der Beendigung</h3>
+                <p>Nach Beendigung der Nutzung:</p>
+                <ul>
+                    <li>Erlischt Ihr Recht zur Nutzung der Plattform</li>
+                    <li>Werden Ihre Zugangsdaten deaktiviert</li>
+                    <li>Können wir Ihre Daten gemäß unserer Datenschutzerklärung verarbeiten</li>
+                    <li>Bleiben diese Nutzungsbedingungen für vergangene Handlungen weiterhin gültig</li>
+                </ul>
+
+                <div class="info-box">
+                    <div class="flex items-start">
+                        <svg class="w-6 h-6 text-gray-600 dark:text-gray-400 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <div>
+                            <p class="font-semibold mb-2">Fortbestehende Bestimmungen</p>
+                            <p class="mb-0">Bestimmungen bezüglich Haftungsausschluss, geistiges Eigentum und anwendbares Recht bleiben auch nach Beendigung der Nutzung weiterhin gültig.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div class="section">
-                <h2 class="section-title">11. Salvatorische Klausel</h2>
-                <div class="text">
-                    Sollten einzelne Bestimmungen dieser Nutzungsbedingungen unwirksam sein, berührt dies nicht die Wirksamkeit der übrigen Bestimmungen. Unwirksame Bestimmungen werden durch rechtlich zulässige ersetzt.
-                </div>
-            </div>
+            <!-- Section 10 -->
+            <div id="section10" class="section-card animate-fade-in">
+                <h2>10. Anwendbares Recht und Gerichtsstand</h2>
+                
+                <h3>Anwendbares Recht</h3>
+                <p>Diese Nutzungsbedingungen und alle sich daraus ergebenden Rechtsbeziehungen unterliegen ausschließlich deutschem Recht unter Ausschluss des UN-Kaufrechts und der Verweisungsnormen des internationalen Privatrechts.</p>
 
-            <div class="section">
-                <h2 class="section-title">12. Anwendbares Recht und Gerichtsstand</h2>
-                <div class="text">
-                    Für diese Nutzungsbedingungen gilt ausschließlich deutsches Recht unter Ausschluss des UN-Kaufrechts. Gerichtsstand ist, soweit gesetzlich zulässig, der Sitz unseres Unternehmens.
-                </div>
-            </div>
+                <h3>Gerichtsstand</h3>
+                <p>Für alle Streitigkeiten aus oder im Zusammenhang mit diesen Nutzungsbedingungen ist ausschließlich der Gerichtsstand Deutschland zuständig. Bei Verbrauchern gilt diese Gerichtsstandsvereinbarung nur, soweit dadurch der gesetzlich vorgesehene Schutz nicht entzogen wird.</p>
 
-            <div class="section">
-                <h2 class="section-title">13. Verbraucherschutz</h2>
-                <div class="text">
-                    Als Verbraucher haben Sie das Recht auf außergerichtliche Streitbeilegung. Zuständig ist die Allgemeine Verbraucherschlichtungsstelle des Zentrums für Schlichtung e.V.
-                </div>
-                <div class="info">
-                    <strong>EU-Streitbeilegung:</strong> Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) zur Verfügung.
-                </div>
-            </div>
+                <h3>Salvatorische Klausel</h3>
+                <p>Sollten einzelne Bestimmungen dieser Nutzungsbedingungen unwirksam oder undurchführbar sein oder werden, so berührt dies nicht die Wirksamkeit der übrigen Bestimmungen. Die unwirksame oder undurchführbare Bestimmung wird durch eine wirksame und durchführbare Bestimmung ersetzt, die dem wirtschaftlichen Zweck der unwirksamen oder undurchführbaren Bestimmung am nächsten kommt.</p>
 
-            <div class="date">
-                <p>Stand: Januar 2025</p>
-                <p>Diese Nutzungsbedingungen wurden zuletzt am 01.01.2025 aktualisiert.</p>
+                <h3>Vertragssprache</h3>
+                <p>Diese Nutzungsbedingungen sind in deutscher Sprache verfasst. Im Falle von Übersetzungen in andere Sprachen ist ausschließlich die deutsche Fassung maßgebend.</p>
+
+                <div class="highlight-box">
+                    <div class="flex items-start">
+                        <svg class="w-6 h-6 text-accent mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <div>
+                            <p class="font-semibold text-blue-800 dark:text-blue-200 mb-2">Kontakt bei Fragen</p>
+                            <p class="text-blue-800 dark:text-blue-200 mb-0">Bei Fragen zu diesen Nutzungsbedingungen oder zur Plattform wenden Sie sich bitte an die im Impressum angegebenen Kontaktdaten. Wir stehen Ihnen gerne zur Verfügung.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-box mt-8">
+                    <div class="flex items-start">
+                        <svg class="w-6 h-6 text-gray-600 dark:text-gray-400 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3a4 4 0 118 0v4m-4 12a4 4 0 110-8 4 4 0 010 8zm0 0V9a4 4 0 118 0v4"/>
+                        </svg>
+                        <div>
+                            <p class="font-semibold mb-2">Letzte Aktualisierung</p>
+                            <p class="mb-0">Diese Nutzungsbedingungen wurden zuletzt im Januar 2024 aktualisiert und sind ab diesem Zeitpunkt gültig.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-primary dark:bg-gray-800 text-white py-12 mt-16">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <div class="flex items-center justify-center space-x-3 mb-6">
+                    <div class="w-10 h-10 bg-gradient-to-r from-accent to-blue-700 rounded-lg flex items-center justify-center shadow-lg">
+                        <span class="text-white font-bold text-lg">€</span>
+                    </div>
+                    <span class="text-2xl font-bold">Investment Deutschland</span>
+                </div>
+                <p class="text-gray-400 mb-4 max-w-md mx-auto">
+                    Professionelle Investitionsbildungsplattform, die sich der Wissensvermittlung und Bildung im Finanzbereich widmet.
+                </p>
+                <div class="text-gray-400 space-y-2">
+                    <p>© 2024 Investment Deutschland Bildungsplattform. Alle Rechte vorbehalten.</p>
+                    <p class="text-sm">Diese Nutzungsbedingungen entsprechen den deutschen und europäischen Rechtsvorschriften.</p>
+                    <p class="text-xs">Reine Bildungsplattform - Keine Anlageberatung oder Finanzdienstleistungen.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Scroll indicator
+        window.addEventListener('scroll', () => {
+            const scrollIndicator = document.getElementById('scrollIndicator');
+            const scrollTop = window.pageYOffset;
+            const docHeight = document.body.scrollHeight - window.innerHeight;
+            const scrollPercent = scrollTop / docHeight;
+            
+            if (scrollIndicator) {
+                scrollIndicator.style.transform = `scaleX(${scrollPercent})`;
+            }
+        });
+
+        // Animate sections on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all section cards
+        document.querySelectorAll('.section-card').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(20px)';
+            section.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+            observer.observe(section);
+        });
+    </script>
 </body>
 </html>

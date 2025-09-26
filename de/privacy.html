@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="de" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Datenschutzerklärung - Investment Deutschland Bildungsplattform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': '#0f172a',
+                        'secondary': '#1e293b',
+                        'accent': '#3b82f6',
+                        'gold': '#f59e0b',
+                        'success': '#10b981',
+                        'danger': '#ef4444'
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.6s ease-out',
+                        'slide-in': 'slideIn 0.8s ease-out'
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' }
+                        },
+                        slideIn: {
+                            '0%': { opacity: '0', transform: 'translateX(-20px)' },
+                            '100%': { opacity: '1', transform: 'translateX(0)' }
+                        }
+                    }
+                }
+            }
+        }
+
+        // Dark mode support
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.classList.add('dark');
+        }
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+            if (event.matches) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        });
+    </script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        }
+        
+        .prose h1 { 
+            @apply text-4xl md:text-5xl font-bold text-primary dark:text-white mb-8 leading-tight;
+            background: linear-gradient(135deg, #0f172a 0%, #3b82f6 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .dark .prose h1 {
+            background: linear-gradient(135deg, #ffffff 0%, #3b82f6 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .prose h2 { 
+            @apply text-2xl md:text-3xl font-bold text-primary dark:text-white mt-12 mb-6 pb-3 border-b-2 border-accent/20;
+        }
+        .prose h3 { 
+            @apply text-xl md:text-2xl font-semibold text-primary dark:text-white mt-8 mb-4 flex items-center;
+        }
+        .prose h3::before {
+            content: '';
+            @apply w-1 h-6 bg-accent rounded mr-3;
+        }
+        .prose h4 { 
+            @apply text-lg md:text-xl font-semibold text-gray-800 dark:text-gray-200 mt-6 mb-3;
+        }
+        .prose p { 
+            @apply text-gray-700 dark:text-gray-300 mb-6 leading-relaxed text-base md:text-lg;
+        }
+        .prose ul { 
+            @apply list-none text-gray-700 dark:text-gray-300 mb-6 space-y-3;
+        }
+        .prose ul li {
+            @apply ml-0 pl-6 relative;
+        }
+        .prose ul li::before {
+            content: '•';
+            @apply absolute left-0 text-accent font-bold text-xl;
+        }
+        .prose ol { 
+            @apply list-decimal list-inside text-gray-700 dark:text-gray-300 mb-6 space-y-3;
+        }
+        .prose strong { 
+            @apply font-semibold text-gray-900 dark:text-gray-100;
+        }
+        .prose em { 
+            @apply italic;
+        }
+        
+        .highlight-box {
+            @apply bg-gradient-to-r from-blue-50 to-blue-100 dark:from-blue-900/50 dark:to-blue-800/50 border-l-4 border-accent rounded-r-lg p-6 my-8 shadow-lg;
+        }
+        
+        .warning-box {
+            @apply bg-gradient-to-r from-amber-50 to-amber-100 dark:from-amber-900/50 dark:to-amber-800/50 border-l-4 border-amber-500 rounded-r-lg p-6 my-8 shadow-lg;
+        }
+        
+        .info-box {
+            @apply bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-800/50 dark:to-gray-700/50 border-l-4 border-gray-400 rounded-r-lg p-6 my-8 shadow-lg;
+        }
+
+        .success-box {
+            @apply bg-gradient-to-r from-green-50 to-green-100 dark:from-green-900/50 dark:to-green-800/50 border-l-4 border-success rounded-r-lg p-6 my-8 shadow-lg;
+        }
+
+        .section-card {
+            @apply bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 mb-8 border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all duration-300;
+        }
+
+        .table-of-contents {
+            @apply bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 mb-8 border border-gray-200 dark:border-gray-700;
+        }
+
+        .toc-link {
+            @apply text-accent hover:text-blue-700 dark:hover:text-blue-300 transition-colors duration-200 block py-2 px-4 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700;
+        }
+
+        .scroll-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #3b82f6, #1d4ed8);
+            transform-origin: left;
+            z-index: 9999;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 antialiased">
+    <!-- Scroll Indicator -->
+    <div class="scroll-indicator" id="scrollIndicator"></div>
+
+    <!-- Header -->
+    <header class="bg-white dark:bg-gray-800 shadow-lg sticky top-0 z-50 backdrop-blur-sm bg-white/95 dark:bg-gray-800/95">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-gradient-to-r from-accent to-blue-700 rounded-lg flex items-center justify-center shadow-lg">
+                        <span class="text-white font-bold text-lg">€</span>
+                    </div>
+                    <span class="text-xl font-bold text-primary dark:text-white">Investment Deutschland</span>
+                </div>
+                <button onclick="window.history.back()" class="flex items-center space-x-2 text-accent hover:text-blue-700 dark:hover:text-blue-300 font-medium transition-colors duration-200 px-4 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                    </svg>
+                    <span>Zurück</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-br from-primary via-secondary to-slate-800 text-white py-16">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="animate-fade-in">
+                <h1 class="text-4xl md:text-6xl font-bold mb-6">Datenschutzerklärung</h1>
+                <p class="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+                    Transparenz und Schutz Ihrer persönlichen Daten haben für uns höchste Priorität
+                </p>
+            </div>
+            
+            <div class="mt-12 animate-slide-in">
+                <div class="highlight-box bg-white/10 border-white/20 backdrop-blur-sm">
+                    <div class="flex items-center justify-center mb-4">
+                        <svg class="w-8 h-8 text-accent mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                        </svg>
+                        <span class="text-xl font-semibold text-white">DSGVO-konform seit Januar 2024</span>
+                    </div>
+                    <p class="text-white/90 mb-0">
+                        Diese Datenschutzerklärung gilt für die Investment Deutschland Bildungsplattform und entspricht allen geltenden EU-Datenschutzbestimmungen
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <!-- Table of Contents -->
+        <div class="table-of-contents animate-fade-in">
+            <h2 class="text-2xl font-bold text-primary dark:text-white mb-6 flex items-center">
+                <svg class="w-6 h-6 text-accent mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/>
+                </svg>
+                Inhaltsverzeichnis
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <a href="#section1" class="toc-link">1. Datenschutz auf einen Blick</a>
+                <a href="#section2" class="toc-link">2. Hosting</a>
+                <a href="#section3" class="toc-link">3. Allgemeine Hinweise</a>
+                <a href="#section4" class="toc-link">4. Datenerfassung</a>
+                <a href="#section5" class="toc-link">5. Soziale Medien</a>
+                <a href="#section6" class="toc-link">6. Bildungsplattform</a>
+                <a href="#section7" class="toc-link">7. Ihre Rechte</a>
+                <a href="#section8" class="toc-link">8. Datensicherheit</a>
+                <a href="#section9" class="toc-link">9. Änderungen</a>
+                <a href="#section10" class="toc-link">10. Besondere Hinweise</a>
+            </div>
+        </div>
+
+        <div class="prose max-w-none">
+            <!-- Section 1 -->
+            <div id="section1" class="section-card animate-fade-in">
+                <h2>1. Datenschutz auf einen Blick</h2>
+                
+                <h3>Allgemeine Hinweise</h3>
+                <p>Die folgenden Hinweise geben einen einfachen Überblick darüber, was mit Ihren personenbezogenen Daten passiert, wenn Sie diese Website besuchen. Personenbezogene Daten sind alle Daten, mit denen Sie persönlich identifiziert werden können. Ausführliche Informationen zum Thema Datenschutz entnehmen Sie unserer unter diesem Text aufgeführten Datenschutzerklärung.</p>
+
+                <h3>Datenerfassung auf dieser Website</h3>
+                
+                <h4>Wer ist verantwortlich für die Datenerfassung auf dieser Website?</h4>
+                <p>Die Datenverarbeitung auf dieser Website erfolgt durch den Websitebetreiber. Die Kontaktdaten der verantwortlichen Stelle können Sie dem entsprechenden Impressum dieser Website entnehmen.</p>
+
+                <h4>Wie erfassen wir Ihre Daten?</h4>
+                <p>Ihre Daten werden zum einen dadurch erhoben, dass Sie uns diese mitteilen. Hierbei kann es sich z. B. um Daten handeln, die Sie in ein Kontaktformular eingeben oder bei der Anmeldung zu unseren Bildungsangeboten.</p>
+                
+                <p>Andere Daten werden automatisch oder nach Ihrer Einwilligung beim Besuch der Website durch unsere IT-Systeme erfasst. Das sind vor allem technische Daten (z. B. Internetbrowser, Betriebssystem oder Uhrzeit des Seitenaufrufs). Die Erfassung dieser Daten erfolgt automatisch, sobald Sie diese Website betreten.</p>
+
+                <h4>Wofür nutzen wir Ihre Daten?</h4>
+                <p>Ein Teil der Daten wird erhoben, um eine fehlerfreie Bereitstellung der Website zu gewährleisten. Andere Daten können zur Analyse Ihres Nutzerverhaltens verwendet werden, um unsere Bildungsangebote zu verbessern.</p>
+
+                <h4>Welche Rechte haben Sie bezüglich Ihrer Daten?</h4>
+                <p>Sie haben jederzeit das Recht, unentgeltlich Auskunft über Herkunft, Empfänger und Zweck Ihrer gespeicherten personenbezogenen Daten zu erhalten. Sie haben außerdem ein Recht, die Berichtigung oder Löschung dieser Daten zu verlangen. Wenn Sie eine Einwilligung zur Datenverarbeitung erteilt haben, können Sie diese Einwilligung jederzeit für die Zukunft widerrufen. Außerdem haben Sie das Recht, unter bestimmten Umständen die Einschränkung der Verarbeitung Ihrer personenbezogenen Daten zu verlangen.</p>
+            </div>
+
+            <!-- Section 2 -->
+            <div id="section2" class="section-card animate-fade-in">
+                <h2>2. Hosting</h2>
+                
+                <h3>Externes Hosting</h3>
+                <p>Diese Website wird extern gehostet. Die personenbezogenen Daten, die auf dieser Website erfasst werden, werden auf den Servern des Hosters / der Hoster gespeichert. Hierbei kann es sich v. a. um IP-Adressen, Kontaktanfragen, Meta- und Kommunikationsdaten, Vertragsdaten, Kontaktdaten, Namen, Websitezugriffe und sonstige Daten, die über eine Website generiert werden, handeln.</p>
+                
+                <p>Das externe Hosting erfolgt zum Zwecke der Vertragserfüllung gegenüber unseren potenziellen und bestehenden Nutzern (Art. 6 Abs. 1 lit. b DSGVO) und im Interesse einer sicheren, schnellen und effizienten Bereitstellung unseres Online-Angebots durch einen professionellen Anbieter (Art. 6 Abs. 1 lit. f DSGVO). Sofern eine entsprechende Einwilligung abgefragt wurde, erfolgt die Verarbeitung ausschließlich auf Grundlage von Art. 6 Abs. 1 lit. a DSGVO und § 25 Abs. 1 TTDSG.</p>
+
+                <div class="info-box">
+                    <div class="flex items-start">
+                        <svg class="w-6 h-6 text-gray-600 dark:text-gray-400 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <div>
+                            <p class="font-semibold mb-2">Auftragsverarbeitung</p>
+                            <p class="mb-0">Unser Hoster wird Ihre Daten nur im Rahmen unserer Weisungen verarbeiten und hat sich zur Einhaltung der DSGVO verpflichtet.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 3 -->
+            <div id="section3" class="section-card animate-fade-in">
+                <h2>3. Allgemeine Hinweise und Pflichtinformationen</h2>
+                
+                <h3>Datenschutz</h3>
+                <p>Die Betreiber dieser Seiten nehmen den Schutz Ihrer persönlichen Daten sehr ernst. Wir behandeln Ihre personenbezogenen Daten vertraulich und entsprechend den gesetzlichen Datenschutzvorschriften sowie dieser Datenschutzerklärung.</p>
+                
+                <p>Wenn Sie diese Website benutzen, werden verschiedene personenbezogene Daten erhoben. Personenbezogene Daten sind Daten, mit denen Sie persönlich identifiziert werden können. Die vorliegende Datenschutzerklärung erläutert, welche Daten wir erheben und wofür wir sie nutzen. Sie erläutert auch, wie und zu welchem Zweck das geschieht.</p>
+
+                <h3>Hinweis zur verantwortlichen Stelle</h3>
+                <p>Die verantwortliche Stelle für die Datenverarbeitung auf dieser Website ist der Betreiber der Investment Deutschland Bildungsplattform. Die verantwortliche Stelle entscheidet allein oder gemeinsam mit anderen über die Zwecke und Mittel der Verarbeitung von personenbezogenen Daten (z. B. Namen, E-Mail-Adressen o. Ä.).</p>
+
+                <h3>Speicherdauer</h3>
+                <p>Soweit innerhalb dieser Datenschutzerklärung keine speziellere Speicherdauer genannt wurde, verbleiben Ihre personenbezogenen Daten bei uns, bis der Zweck für die Datenverarbeitung entfällt. Wenn Sie ein berechtigtes Löschersuchen geltend machen oder eine Einwilligung zur Datenverarbeitung widerrufen, werden Ihre Daten gelöscht, sofern wir keine anderen rechtlich zulässigen Gründe für die Speicherung Ihrer personenbezogenen Daten haben (z. B. steuer- oder handelsrechtliche Aufbewahrungsfristen).</p>
+
+                <h3>Allgemeine Hinweise zu den Rechtsgrundlagen der Datenverarbeitung</h3>
+                <p>Sofern Sie in die Datenverarbeitung eingewilligt haben, verarbeiten wir Ihre personenbezogenen Daten auf Grundlage von Art. 6 Abs. 1 lit. a DSGVO bzw. Art. 9 Abs. 2 lit. a DSGVO, falls besondere Datenkategorien nach Art. 9 Abs. 1 DSGVO verarbeitet werden. Im Falle einer ausdrücklichen Einwilligung in die Übertragung personenbezogener Daten in Drittstaaten erfolgt die Datenverarbeitung außerdem auf Grundlage von Art. 49 Abs. 1 lit. a DSGVO.</p>
+
+                <h3>Widerruf Ihrer Einwilligung zur Datenverarbeitung</h3>
+                <p>Viele Datenverarbeitungsvorgänge sind nur mit Ihrer ausdrücklichen Einwilligung möglich. Sie können eine bereits erteilte Einwilligung jederzeit widerrufen. Die Rechtmäßigkeit der bis zum Widerruf erfolgten Datenverarbeitung bleibt vom Widerruf unberührt.</p>
+
+                <h3>Widerspruchsrecht gegen die Datenerhebung in besonderen Fällen</h3>
+                <div class="warning-box">
+                    <div class="flex items-start">
+                        <svg class="w-6 h-6 text-amber-600 dark:text-amber-400 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"/>
+                        </svg>
+                        <div>
+                            <p class="font-semibold text-amber-800 dark:text-amber-200 mb-2">Wichtiger Hinweis:</p>
+                            <p class="text-amber-800 dark:text-amber-200 mb-0">WENN DIE DATENVERARBEITUNG AUF GRUNDLAGE VON ART. 6 ABS. 1 LIT. E ODER F DSGVO ERFOLGT, HABEN SIE JEDERZEIT DAS RECHT, AUS GRÜNDEN, DIE SICH AUS IHRER BESONDEREN SITUATION ERGEBEN, GEGEN DIE VERARBEITUNG IHRER PERSONENBEZOGENEN DATEN WIDERSPRUCH EINZULEGEN.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Beschwerderecht bei der zuständigen Aufsichtsbehörde</h3>
+                <p>Im Falle von Verstößen gegen die DSGVO steht den Betroffenen ein Beschwerderecht bei einer Aufsichtsbehörde, insbesondere in dem Mitgliedstaat ihres gewöhnlichen Aufenthalts, ihres Arbeitsplatzes oder des Orts des mutmaßlichen Verstoßes zu. Das Beschwerderecht besteht unbeschadet anderweitiger verwaltungsrechtlicher oder gerichtlicher Rechtsbehelfe.</p>
+
+                <h3>Recht auf Datenübertragbarkeit</h3>
+                <p>Sie haben das Recht, Daten, die wir auf Grundlage Ihrer Einwilligung oder in Erfüllung eines Vertrags automatisiert verarbeiten, an sich oder an einen Dritten in einem gängigen, maschinenlesbaren Format aushändigen zu lassen. Sofern Sie die direkte Übertragung der Daten an einen anderen Verantwortlichen verlangen, erfolgt dies nur, soweit es technisch machbar ist.</p>
+            </div>
+
+            <!-- Section 4 -->
+            <div id="section4" class="section-card animate-fade-in">
+                <h2>4. Datenerfassung auf dieser Website</h2>
+                
+                <h3>Server-Log-Dateien</h3>
+                <p>Der Provider der Seiten erhebt und speichert automatisch Informationen in so genannten Server-Log-Dateien, die Ihr Browser automatisch an uns übermittelt. Dies sind:</p>
+                
+                <ul>
+                    <li>Browsertyp und Browserversion</li>
+                    <li>verwendetes Betriebssystem</li>
+                    <li>Referrer URL</li>
+                    <li>Hostname des zugreifenden Rechners</li>
+                    <li>Uhrzeit der Serveranfrage</li>
+                    <li>IP-Adresse</li>
+                </ul>
+                
+                <p>Eine Zusammenführung dieser Daten mit anderen Datenquellen wird nicht vorgenommen. Die Erfassung dieser Daten erfolgt auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO. Der Websitebetreiber hat ein berechtigtes Interesse an der technisch fehlerfreien Darstellung und der Optimierung seiner Website – hierzu müssen die Server-Log-Files erfasst werden.</p>
+
+                <h3>Anfrage per E-Mail oder Telefon</h3>
+                <p>Wenn Sie uns per E-Mail oder Telefon kontaktieren, wird Ihre Anfrage inklusive aller daraus hervorgehenden personenbezogenen Daten (Name, Anfrage) zum Zwecke der Bearbeitung Ihres Anliegens bei uns gespeichert und verarbeitet. Diese Daten geben wir nicht ohne Ihre Einwilligung weiter.</p>
+                
+                <p>Die Verarbeitung dieser Daten erfolgt auf Grundlage von Art. 6 Abs. 1 lit. b DSGVO, sofern Ihre Anfrage mit der Erfüllung eines Vertrags zusammenhängt oder zur Durchführung vorvertraglicher Maßnahmen erforderlich ist. In allen übrigen Fällen beruht die Verarbeitung auf unserem berechtigten Interesse an der effektiven Bearbeitung der an uns gerichteten Anfragen (Art. 6 Abs. 1 lit. f DSGVO) oder auf Ihrer Einwilligung (Art. 6 Abs. 1 lit. a DSGVO) sofern diese abgefragt wurde.</p>
+            </div>
+
+            <!-- Section 5 -->
+            <div id="section5" class="section-card animate-fade-in">
+                <h2>5. Soziale Medien</h2>
+                
+                <h3>WhatsApp Button</h3>
+                <p>Auf dieser Website ist ein Button zum Messenger-Dienst WhatsApp der WhatsApp Ireland Limited, 4 Grand Canal Square, Grand Canal Harbour, Dublin 2, Irland, eingebunden.</p>
+                
+                <p>Wenn Sie auf den WhatsApp-Button klicken, wird der WhatsApp-Messenger auf Ihrem Endgerät gestartet (falls installiert) oder Sie werden zur WhatsApp-Website weitergeleitet. Dabei kann WhatsApp erfahren, dass Sie unsere Website besucht haben. Rechtsgrundlage für die Einbindung des WhatsApp-Buttons und den damit verbundenen Datentransfer ist Art. 6 Abs. 1 lit. f DSGVO. Unser berechtigtes Interesse liegt in der Verbesserung der Qualität unserer Bildungsangebote.</p>
+            </div>
+
+            <!-- Section 6 -->
+            <div id="section6" class="section-card animate-fade-in">
+                <h2>6. Bildungsplattform-spezifische Datenverarbeitung</h2>
+                
+                <h3>Teilnahme an Bildungsangeboten</h3>
+                <p>Wenn Sie sich für unsere kostenlosen Bildungsangebote anmelden, erheben wir die für die Teilnahme notwendigen Daten. Dies umfasst in der Regel:</p>
+                
+                <ul>
+                    <li>Name (optional)</li>
+                    <li>Kontaktdaten für die Übermittlung von Bildungsmaterialien</li>
+                    <li>Angaben zu Ihrem Bildungsinteresse</li>
+                </ul>
+                
+                <p>Die Datenverarbeitung erfolgt zur Bereitstellung unserer Bildungsdienstleistungen auf Grundlage von Art. 6 Abs. 1 lit. b DSGVO oder bei freiwilliger Angabe auf Grundlage Ihrer Einwilligung nach Art. 6 Abs. 1 lit. a DSGVO.</p>
+
+                <h3>Bildungsanalyse und -verbesserung</h3>
+                <p>Zur Verbesserung unserer Bildungsangebote analysieren wir anonymisiert die Nutzung unserer Website und Materialien. Diese Analyse dient ausschließlich der Optimierung unserer Bildungsplattform und erfolgt auf Grundlage unseres berechtigten Interesses (Art. 6 Abs. 1 lit. f DSGVO).</p>
+            </div>
+
+            <!-- Section 7 -->
+            <div id="section7" class="section-card animate-fade-in">
+                <h2>7. Ihre Rechte</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    <div class="success-box">
+                        <div class="flex items-start">
+                            <svg class="w-6 h-6 text-success mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            <div>
+                                <h4 class="font-semibold text-green-800 dark:text-green-200 mb-2">Auskunftsrecht</h4>
+                                <p class="text-green-800 dark:text-green-200 mb-0 text-sm">Unentgeltliche Auskunft über gespeicherte Daten jederzeit möglich</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="success-box">
+                        <div class="flex items-start">
+                            <svg class="w-6 h-6 text-success mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                            </svg>
+                            <div>
+                                <h4 class="font-semibold text-green-800 dark:text-green-200 mb-2">Berichtigungsrecht</h4>
+                                <p class="text-green-800 dark:text-green-200 mb-0 text-sm">Unverzügliche Korrektur unrichtiger Daten</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="success-box">
+                        <div class="flex items-start">
+                            <svg class="w-6 h-6 text-success mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                            </svg>
+                            <div>
+                                <h4 class="font-semibold text-green-800 dark:text-green-200 mb-2">Löschungsrecht</h4>
+                                <p class="text-green-800 dark:text-green-200 mb-0 text-sm">Löschung Ihrer Daten unter bestimmten Voraussetzungen</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="success-box">
+                        <div class="flex items-start">
+                            <svg class="w-6 h-6 text-success mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728L5.636 5.636m12.728 12.728L12 12m6.364 6.364L12 12m0 0L5.636 5.636M12 12l6.364-6.364M12 12l-6.364 6.364"/>
+                            </svg>
+                            <div>
+                                <h4 class="font-semibold text-green-800 dark:text-green-200 mb-2">Einschränkungsrecht</h4>
+                                <p class="text-green-800 dark:text-green-200 mb-0 text-sm">Einschränkung der Datenverarbeitung unter bestimmten Umständen</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="highlight-box">
+                    <div class="flex items-start">
+                        <svg class="w-6 h-6 text-accent mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                        </svg>
+                        <div>
+                            <h4 class="font-semibold text-blue-800 dark:text-blue-200 mb-2">Geltendmachung Ihrer Rechte</h4>
+                            <p class="text-blue-800 dark:text-blue-200 mb-0">Alle Rechte können Sie über die in unserem Impressum angegebenen Kontaktdaten geltend machen. Wir werden Ihrem Anliegen umgehend und in jedem Fall innerhalb eines Monats nachkommen.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 8 -->
+            <div id="section8" class="section-card animate-fade-in">
+                <h2>8. Datensicherheit</h2>
+                
+                <h3>SSL- bzw. TLS-Verschlüsselung</h3>
+                <p>Diese Seite nutzt aus Sicherheitsgründen und zum Schutz der Übertragung vertraulicher Inhalte eine SSL- bzw. TLS-Verschlüsselung. Eine verschlüsselte Verbindung erkennen Sie daran, dass die Adresszeile des Browsers von „http://" auf „https://" wechselt und an dem Schloss-Symbol in Ihrer Browserzeile.</p>
+
+                <h3>Technische und organisatorische Maßnahmen</h3>
+                <p>Wir haben umfangreiche technische und organisatorische Maßnahmen getroffen, um Ihre personenbezogenen Daten vor Verlust, Manipulation oder unberechtigtem Zugriff zu schützen. Unsere Sicherheitsmaßnahmen werden entsprechend der technologischen Entwicklung fortlaufend verbessert.</p>
+            </div>
+
+            <!-- Section 9 -->
+            <div id="section9" class="section-card animate-fade-in">
+                <h2>9. Änderungen der Datenschutzerklärung</h2>
+                
+                <p>Wir behalten uns vor, diese Datenschutzerklärung gelegentlich anzupassen, damit sie stets den aktuellen rechtlichen Anforderungen entspricht oder um Änderungen unserer Leistungen in der Datenschutzerklärung umzusetzen. Für Ihren erneuten Besuch gilt dann die neue Datenschutzerklärung.</p>
+
+                <div class="info-box">
+                    <div class="flex items-start">
+                        <svg class="w-6 h-6 text-gray-600 dark:text-gray-400 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3a4 4 0 118 0v4m-4 12a4 4 0 110-8 4 4 0 010 8zm0 0V9a4 4 0 118 0v4"/>
+                        </svg>
+                        <div>
+                            <p class="font-semibold mb-2">Letzte Aktualisierung</p>
+                            <p class="mb-0">Diese Datenschutzerklärung wurde zuletzt am Januar 2024 aktualisiert und ist ab diesem Zeitpunkt gültig.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 10 -->
+            <div id="section10" class="section-card animate-fade-in">
+                <h2>10. Besondere Hinweise für Bildungsplattformen</h2>
+                
+                <h3>Keine Anlageberatung</h3>
+                <p>Wir weisen ausdrücklich darauf hin, dass unsere Plattform ausschließlich der Bildung und Information dient. Die bereitgestellten Inhalte stellen keine Anlageberatung dar und sollten nicht als Grundlage für Investitionsentscheidungen verwendet werden.</p>
+
+                <h3>Freiwilligkeit der Datenangabe</h3>
+                <p>Die Angabe personenbezogener Daten für die Nutzung unserer Bildungsangebote ist grundsätzlich freiwillig. Sie können unsere Bildungsressourcen auch ohne Angabe persönlicher Daten nutzen, allerdings kann dies den Umfang der verfügbaren Dienste einschränken.</p>
+
+                <div class="warning-box">
+                    <div class="flex items-start">
+                        <svg class="w-6 h-6 text-amber-600 dark:text-amber-400 mr-3 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"/>
+                        </svg>
+                        <div>
+                            <p class="font-semibold text-amber-800 dark:text-amber-200 mb-2">Wichtiger Hinweis</p>
+                            <p class="text-amber-800 dark:text-amber-200 mb-0">Bei Fragen zum Datenschutz oder zur Ausübung Ihrer Rechte wenden Sie sich bitte an die im Impressum angegebenen Kontaktdaten. Wir sind jederzeit bereit, Ihnen bei datenschutzrechtlichen Fragen zu helfen.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-primary dark:bg-gray-800 text-white py-12 mt-16">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <div class="flex items-center justify-center space-x-3 mb-6">
+                    <div class="w-10 h-10 bg-gradient-to-r from-accent to-blue-700 rounded-lg flex items-center justify-center shadow-lg">
+                        <span class="text-white font-bold text-lg">€</span>
+                    </div>
+                    <span class="text-2xl font-bold">Investment Deutschland</span>
+                </div>
+                <p class="text-gray-400 mb-4 max-w-md mx-auto">
+                    Professionelle Investitionsbildungsplattform, die sich der Wissensvermittlung und Bildung im Finanzbereich widmet.
+                </p>
+                <div class="text-gray-400 space-y-2">
+                    <p>© 2024 Investment Deutschland Bildungsplattform. Alle Rechte vorbehalten.</p>
+                    <p class="text-sm">Diese Datenschutzerklärung entspricht den Anforderungen der DSGVO und des deutschen Datenschutzrechts.</p>
+                    <p class="text-xs">Reine Bildungsplattform - Keine Anlageberatung oder Finanzdienstleistungen.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Scroll indicator
+        window.addEventListener('scroll', () => {
+            const scrollIndicator = document.getElementById('scrollIndicator');
+            const scrollTop = window.pageYOffset;
+            const docHeight = document.body.scrollHeight - window.innerHeight;
+            const scrollPercent = scrollTop / docHeight;
+            
+            if (scrollIndicator) {
+                scrollIndicator.style.transform = `scaleX(${scrollPercent})`;
+            }
+        });
+
+        // Animate sections on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all section cards
+        document.querySelectorAll('.section-card').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(20px)';
+            section.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
