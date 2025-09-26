@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Deutsche Aktientrend-Umfrage</title>
+    <style>
+        :root {
+            --primary-blue: #4a90e2;
+            --light-blue: #74b9ff;
+            --accent-blue: #55a3ff;
+            --bg-white: #fafbfc;
+            --bg-light: #ffffff;
+            --text-dark: #2d3436;
+            --text-gray: #636e72;
+            --border-light: #ddd;
+            --shadow-soft: rgba(74, 144, 226, 0.15);
+            --gradient-primary: linear-gradient(135deg, #4a90e2 0%, #74b9ff 100%);
+            --gradient-bg: linear-gradient(45deg, #f8fbff 0%, #e8f4ff 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .main-container {
+            font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            min-height: 100vh;
+            background: var(--gradient-bg);
+            color: var(--text-dark);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            text-align: center;
+            padding: 25px 20px 15px;
+            background: var(--bg-light);
+            box-shadow: 0 2px 10px var(--shadow-soft);
+        }
+
+        .profile-image {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 15px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid var(--primary-blue);
+            box-shadow: 0 4px 20px var(--shadow-soft);
+            animation: breathing 3s ease-in-out infinite;
+        }
+
+        @keyframes breathing {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+        }
+
+        .profile-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .title {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 13px;
+            color: var(--text-gray);
+            line-height: 1.5;
+            max-width: 320px;
+            margin: 0 auto;
+        }
+
+        .content {
+            flex: 1;
+            padding: 15px;
+        }
+
+        .progress-container {
+            background: var(--bg-light);
+            padding: 15px 20px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px var(--shadow-soft);
+        }
+
+        .progress-bar-wrapper {
+            background: #e0e0e0;
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .progress-bar {
+            background: var(--gradient-primary);
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.5s ease;
+            width: 0%;
+        }
+
+        .progress-text {
+            font-size: 12px;
+            color: var(--text-gray);
+            text-align: center;
+        }
+
+        .question-container {
+            background: var(--bg-light);
+            border-radius: 15px;
+            padding: 25px 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 15px var(--shadow-soft);
+        }
+
+        .question-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--primary-blue);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .option {
+            margin: 12px 0;
+        }
+
+        .radio-wrapper {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            border: 2px solid var(--border-light);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: var(--bg-light);
+        }
+
+        .radio-wrapper:hover {
+            border-color: var(--light-blue);
+            background: #f8fbff;
+            transform: translateX(3px);
+        }
+
+        .radio-wrapper.selected {
+            border-color: var(--primary-blue);
+            background: var(--gradient-primary);
+            color: white;
+        }
+
+        .radio-input {
+            display: none;
+        }
+
+        .radio-indicator {
+            width: 18px;
+            height: 18px;
+            border: 2px solid var(--border-light);
+            border-radius: 50%;
+            margin-right: 12px;
+            position: relative;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .radio-wrapper.selected .radio-indicator {
+            border-color: white;
+        }
+
+        .radio-indicator::after {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            transition: transform 0.3s ease;
+        }
+
+        .radio-wrapper.selected .radio-indicator::after {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .radio-text {
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 1.3;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background: var(--bg-light);
+            border-radius: 15px;
+            padding: 30px 25px 20px;
+            max-width: 350px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            transform: scale(0.8);
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--text-gray);
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            background: #f0f0f0;
+            color: var(--text-dark);
+        }
+
+        .modal-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 18px;
+        }
+
+        .modal-description {
+            font-size: 14px;
+            color: var(--text-gray);
+            margin-bottom: 18px;
+            line-height: 1.6;
+        }
+
+        .benefit-item {
+            text-align: left;
+            margin: 10px 0;
+            padding-left: 20px;
+            font-size: 13px;
+            color: var(--text-dark);
+            position: relative;
+        }
+
+        .benefit-item::before {
+            content: '👉';
+            position: absolute;
+            left: 0;
+        }
+
+        .cta-button {
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px var(--shadow-soft);
+            margin: 20px 0 15px;
+            animation: buttonBreathing 2.5s ease-in-out infinite;
+        }
+
+        @keyframes buttonBreathing {
+            0%, 100% { 
+                transform: scale(1);
+                box-shadow: 0 4px 15px var(--shadow-soft);
+            }
+            50% { 
+                transform: scale(1.05);
+                box-shadow: 0 6px 25px rgba(74, 144, 226, 0.3);
+            }
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 8px 25px var(--shadow-soft);
+            animation: none;
+        }
+
+        .modal-disclaimer {
+            font-size: 10px;
+            color: var(--text-gray);
+            margin-top: 10px;
+        }
+
+        .footer {
+            background: var(--text-dark);
+            color: white;
+            padding: 20px 15px;
+            text-align: center;
+            font-size: 10px;
+            line-height: 1.4;
+        }
+
+        .legal-links {
+            margin-top: 12px;
+        }
+
+        .legal-links a {
+            color: var(--light-blue);
+            text-decoration: none;
+            margin: 0 8px;
+            font-size: 10px;
+            transition: color 0.3s ease;
+        }
+
+        .legal-links a:hover {
+            color: white;
+        }
+
+        @media (max-width: 360px) {
+            .header {
+                padding: 20px 15px 12px;
+            }
+            
+            .title {
+                font-size: 20px;
+            }
+            
+            .subtitle {
+                font-size: 12px;
+            }
+            
+            .question-container {
+                padding: 20px 15px;
+            }
+            
+            .radio-wrapper {
+                padding: 10px 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <header class="header">
+            <div class="profile-image">
+                <img src="img/5.jpg" alt="Deutsche Aktienforschung">
+            </div>
+            <h1 class="title">Deutsche Aktientrend-Umfrage</h1>
+            <p class="subtitle">
+                Marktforschungsunterstützung - Investitionstrend-Umfrage (ca. 1 Minute). Antworten werden streng vertraulich behandelt und nur für zusammenfassende Analysen verwendet. Keine Anlageberatung.
+            </p>
+        </header>
+
+        <main class="content">
+            <div class="progress-container">
+                <div class="progress-bar-wrapper">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+                <div class="progress-text" id="progressText">Frage 1 / 3</div>
+            </div>
+
+            <div class="question-container" id="questionContainer">
+                <h2 class="question-title" id="questionTitle"></h2>
+                <div id="questionOptions"></div>
+            </div>
+        </main>
+
+        <div class="modal-overlay" id="completionModal">
+            <div class="modal-content">
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+                <h2 class="modal-title">Vielen Dank für die Teilnahme an der Umfrage!</h2>
+                <p class="modal-description">Für die folgenden kostenlosen Ressourcen fügen Sie bitte unseren offiziellen WhatsApp-Account hinzu:</p>
+                <div class="benefit-item">Geschenk "2025 Deutsche Aktienmarkt-Branchendaten-Weißbuch"</div>
+                <div class="benefit-item">Wöchentliche DAX-Index-Dynamik-Updates</div>
+                <button class="cta-button" onclick="kma()">Offiziellen WhatsApp hinzufügen</button>
+                <div class="modal-disclaimer">Stellt keine Anlageberatung dar. Märkte bergen Risiken.</div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div style="margin-bottom: 15px;">
+                <div style="color: #ff6b6b; font-weight: bold; margin-bottom: 8px;">⚠️ Wichtige Risikowarnung</div>
+                <div style="text-align: left; line-height: 1.3; font-size: 9px;">
+                    • Dieser Service bietet nur allgemeine Marktinformationen und stellt keine Anlageberatung oder -empfehlungen dar<br>
+                    • Finanzmärkte bergen Risiken, Sie können einen Teil oder Ihr gesamtes investiertes Kapital verlieren<br>
+                    • Alle gezeigten Beispiele sind historische Datenanalysen und garantieren keine zukünftigen Erträge<br>
+                    • Anleger sollten basierend auf ihrer eigenen Risikotoleranz vorsichtig entscheiden<br>
+                    • Alle Informationen sind objektive Sachverhalte und stellen keine Anlageberatung dar<br>
+                    • Anlageentscheidungen sollten immer mit einem professionellen Finanzberater besprochen werden<br>
+                    • Unser Unternehmen übernimmt keine Verantwortung für Anlageverluste<br>
+                    • Diese Informationen werden nur zu Bildungszwecken bereitgestellt und empfehlen nicht den Kauf oder Verkauf von Finanzprodukten
+                </div>
+            </div>
+            <div class="legal-links">
+                <a href="Privacy.html">Datenschutzrichtlinie</a>
+                <a href="terms.html">Nutzungsbedingungen</a>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // 问题数据
+        var questions = [
+            {
+                question: "Wie hoch ist Ihr Interesse an Investitionen in die KI-Branche?",
+                options: [
+                    "Sehr interessiert",
+                    "Etwas interessiert", 
+                    "Neutral",
+                    "Wenig interessiert",
+                    "Überhaupt nicht interessiert"
+                ]
+            },
+            {
+                question: "Wie bewerten Sie das Investitionsrenditepotenzial von KI-Aktien in den nächsten fünf Jahren?",
+                options: [
+                    "Sehr hoch",
+                    "Relativ hoch",
+                    "Mittel", 
+                    "Relativ niedrig",
+                    "Sehr niedrig"
+                ]
+            },
+            {
+                question: "Welchen Faktor bewerten Sie bei der Auswahl von KI-Aktien am wichtigsten?",
+                options: [
+                    "Finanzielle Lage des Unternehmens",
+                    "Branchenaussichten",
+                    "Managementerfahrung",
+                    "Technologische Vorteile", 
+                    "Marktfähigkeit"
+                ]
+            }
+        ];
+
+        var currentStep = 0;
+        var isAnswering = false;
+
+        function renderCurrentQuestion() {
+            if (currentStep >= questions.length) {
+                showFinalModal();
+                return;
+            }
+
+            var q = questions[currentStep];
+            
+            // 更新标题
+            document.getElementById('questionTitle').innerHTML = q.question;
+            
+            // 生成选项
+            var optionsHtml = '';
+            for (var i = 0; i < q.options.length; i++) {
+                optionsHtml += '<div class="option">';
+                optionsHtml += '<label class="radio-wrapper" data-option="' + i + '">';
+                optionsHtml += '<input type="radio" name="current" class="radio-input">';
+                optionsHtml += '<div class="radio-indicator"></div>';
+                optionsHtml += '<span class="radio-text">' + q.options[i] + '</span>';
+                optionsHtml += '</label>';
+                optionsHtml += '</div>';
+            }
+            
+            document.getElementById('questionOptions').innerHTML = optionsHtml;
+            
+            // 绑定点击事件
+            var wrappers = document.querySelectorAll('.radio-wrapper');
+            for (var j = 0; j < wrappers.length; j++) {
+                wrappers[j].addEventListener('click', selectAnswer);
+            }
+            
+            // 更新进度显示
+            document.getElementById('progressText').innerHTML = 'Frage ' + (currentStep + 1) + ' / ' + questions.length;
+            
+            console.log('当前显示问题：', currentStep + 1, q.question);
+        }
+
+        function selectAnswer(event) {
+            if (isAnswering) return;
+            isAnswering = true;
+            
+            // 清除其他选中状态
+            var allWrappers = document.querySelectorAll('.radio-wrapper');
+            for (var i = 0; i < allWrappers.length; i++) {
+                allWrappers[i].classList.remove('selected');
+            }
+            
+            // 设置当前选中
+            this.classList.add('selected');
+            
+            // 更新进度条
+            var progress = ((currentStep + 1) / questions.length) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+            
+            console.log('选择了问题', currentStep + 1, '的答案');
+            
+            // 1秒后进入下一题
+            setTimeout(function() {
+                currentStep = currentStep + 1;
+                isAnswering = false;
+                renderCurrentQuestion();
+            }, 1000);
+        }
+
+        function showFinalModal() {
+            document.querySelector('.progress-container').style.display = 'none';
+            document.getElementById('questionContainer').style.display = 'none';
+            document.getElementById('completionModal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('completionModal').classList.remove('active');
+            document.querySelector('.progress-container').style.display = 'block';
+            document.getElementById('questionContainer').style.display = 'block';
+        }
+
+        function kma() {
+           window.location.href="https://www.qq.com";
+        }
+
+        // 开始第一个问题
+        renderCurrentQuestion();
+
+        document.addEventListener('touchstart', function(event) {
+            if (event.touches.length > 1) {
+                event.preventDefault();
+            }
+        }, { passive: false });
+
+        var lastTouchEnd = 0;
+        document.addEventListener('touchend', function(event) {
+            var now = new Date().getTime();
+            var timeSinceLastTouch = now - lastTouchEnd;
+            if (timeSinceLastTouch < 300 && timeSinceLastTouch > 0) {
+                event.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
+    </script>
+</body>
+</html>
